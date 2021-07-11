@@ -1,0 +1,98 @@
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Work Sans", sans-serif;
+}
+
+body {
+  display: grid;
+  height: 100vh;
+  overflow: hidden;
+  grid-template-columns: 60vw 40vw;
+  grid-template-rows: 1fr 6fr 3.5fr;
+  grid-template-areas: "nav nav" "main hero" "buttons hero";
+}
+@media (max-width: 767.98px) {
+  body {
+    grid-template-columns: 100vw;
+    grid-template-rows: 1fr 6fr 4fr;
+    grid-template-areas: "nav" "main" "buttons";
+  }
+}
+
+canvas {
+  position: absolute;
+  z-index: -1;
+  width: 100vw;
+  height: 100vh;
+  background-image: linear-gradient(170deg, #4C29AE 70%, #7C27BE);
+}
+
+nav {
+  grid-area: nav;
+  min-height: 3.5em;
+}
+nav .title {
+  color: #ffffff;
+  font-size: min(4.5vw, 2em);
+  padding: 0.5em 1em;
+}
+
+.main {
+  grid-area: main;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 3em 0 3em 3em;
+}
+.main .title {
+  font-size: min(17vw, 8em);
+  font-weight: bold;
+  color: #ffffff;
+}
+.main .desc {
+  font-size: min(3.5vw, 1.5em);
+  width: 100%;
+  color: #E8E8E8;
+}
+
+.buttons {
+  grid-area: buttons;
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+  align-items: flex-start;
+  padding: 0 3em;
+}
+.buttons button {
+  all: unset;
+  background-color: #ffffff;
+  color: #7C27BE;
+  padding: 0.7em 1.5em;
+  margin: 0 0 0 1em;
+  height: max-content;
+  font-size: min(3.5vw, 1.5em);
+  cursor: pointer;
+  transition: 0.3s all;
+}
+.buttons button:hover, .buttons button:focus, .buttons button:focus-within {
+  padding: 0.7em 2em;
+  color: #ffffff;
+  background-color: #180625;
+}
+
+.hero {
+  grid-area: hero;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+@media (max-width: 767.98px) {
+  .hero {
+    display: none;
+  }
+}
+
+/*# sourceMappingURL=style.css.map */
