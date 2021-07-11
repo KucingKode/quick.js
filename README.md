@@ -14,7 +14,7 @@ development experience 😎
 ___
 
 To Install Quick.js all you need to do is just
-visit our website, and click download button, it will download quick.js file, then the only thing that do you need to do is just import that file in index.js
+visit [quick.js website](https://kucingkode.github.io/quick.js/), and click download button, it will download quick.js file, then the only thing that do you need to do is just import that file in index.js
 
 > `import Quick from 'path/to/Quick.js'`
 

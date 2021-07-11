@@ -30,6 +30,10 @@ body {
     }
 }
 
+a {
+    text-decoration: none;
+}
+
 canvas {
     position: absolute;
     z-index: -1;
@@ -80,19 +84,26 @@ nav {
     button {
         all: unset;
         background-color: #ffffff;
-        color: #7C27BE;
-        padding: 0.7em 1.5em;
+        padding: 0.9em 1.5em;
         margin: 0 0 0 1em;
         height: max-content;
-        font-size: min(3.5vw, 1.5em);
         cursor: pointer;
         transition: 0.3s all;
+        
+        a {
+            font-size: min(3.5vw, 1.5em);
+            color: #7C27BE;
+            transition: 0.3s all;
+        }
 
         &:hover, &:focus, &:focus-within {
-            padding: 0.7em 2em;
-            color: #ffffff;
             background-color: #180625; 
+            a {
+                padding: 0.7em 2em;
+                color: #ffffff;
+            }
         }
+
     }
 }
 
@@ -104,9 +115,5 @@ nav {
 
     @media (max-width: 767.98px) {
         display: none;
-    }
-
-    img {
-
     }
 }

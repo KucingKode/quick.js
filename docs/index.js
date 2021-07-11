@@ -13,7 +13,7 @@ Quick.createSketch({
     fileSys.getText('./lib/quick.js', (_, ctx) => {
         const downloadBtn = document.querySelector('.download')
         downloadBtn.addEventListener('click', () => {
-            fileSys.sendText(ctx, 'Quick.js')
+            fileSys.sendText(ctx, 'quick.js')
         })
     })
 
