@@ -1,6 +1,8 @@
 # Quick.js
 
-Quick.js is a library to create awesome sketch in minutes.
+![img](./img/logo.png)
+
+Quick.js is a library that is easy to use and read, even for beginners or people who have never coded. Quick.js focuses on **making creative experiments easier** to do.
 
 - **Ease To Use :** Quick.js will make everything easier. Quick.js has amazing core library : math library, color library, file library, Vector2D, Grid, and many more 😍
 
@@ -24,7 +26,9 @@ ___
 
 ### [Getting Started🐱‍👤](#Getting_Started)
 
-### References📃
+### Reference📃
+
+**For detail reference, please visit [our website](https://kucingkode.github.io/quick.js/) on <https://kucingkode.github.io/quick.js/>**
 
 - [std](#std)
 - [media](#media)
@@ -35,82 +39,49 @@ ___
 
 ___
 
-### **First Project :**
+- [download visual studio code](https://code.visualstudio.com/download), for your code editor
 
-```javascript
-// index.js
+- [download quick.js library](https://github.com/KucingKode/quick.js/releases/download/v1.0.0/quick.js), then save it on your project folder
 
+- Create new file, then name it `index.html`
 
-// Import Quick.js
-import Quick from './path/to/Quick.js'
+- Create new file, then name it `index.js`
 
-// Create new sketch
-Quick.createSketch({
-  title: 'hello world!'
-}, () => {
-    // Extract std library from quick core
-    const {std} = Quick.Core
+- Then write this code into your `index.html` file
 
-    const arr = [1.22, 2.23, 3.21, 4.11]
-    const arrSum = std.sum(arr)) // 10.77
+- ![html template](https://github.com/KucingKode/quick.js/tree/main/assets/html1.png)  
 
-    console.log(std.round(arrSum, 1)) // 10.8
-})
+- Then write this code into tour `index.js` file
 
-// run quick sketch
-Quick.run()
+- ![js template](https://github.com/KucingKode/quick.js/tree/main/assets/js.png)  
 
-```
+- add this line to your `index.html` file
 
-```HTML
-<!-- index.html -->
+- ![link js in html](https://github.com/KucingKode/quick.js/tree/main/assets/html2.png)
 
+- Download the `live server` extension on your Visual Studio Code
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Title</title>
+- ![live server icon](https://github.com/KucingKode/quick.js/tree/main/assets/liveServer.png)
 
-    <!-- link your index.js file -->
-    <script src="path/to/index.js" type="module" defer></script>
-</head>
-<body>
-</body>
-</html>
+- On the bottom left on your visual studio code, click `Go Live` button
 
-```
+- ![go live button](https://github.com/KucingKode/quick.js/tree/main/assets/goLive.png)
 
-### **Quick console :**
+- Open your web browser on `localhost:{ port number on the bottom right your visual studio code }`
 
-To access Quick.js console, just press open your browser console, to see all available console command just type **Quick.help** on your console then click [ Enter ]
+___
 
->  
-> **how to open browsers console:**  
->
-> Chrome / Brave:  
-> Press : ( Ctrl or Cmd ) + Shift + I
->
-> Firefox:  
-> Press : ( Ctrl or Cmd ) + Shift + K
->
-> Safari:  
-> Press : ( Ctrl or Cmd ) + Shift + C
->  
-<!-- 
-### **Install library :**
+Happy Coding😍  
+For more information you can go to our [website](https://kucingkode.github.io/quick.js/)
 
-Quick.js has some extra library that can be downloaded using your browser console, to install a quick library, you can type
-
-> Quick.install('library_name')
-
-on your browser console -->
+Recomended links:  
+Coming Soon...
 
 ## **API Reference**
 
 ___
+
+**For more details reference, please visit [our website](https://kucingkode.github.io/quick.js/)**
 
 - ### **std**
 
