@@ -1,0 +1,146 @@
+@use './var';
+
+@mixin nav() {
+    nav {
+        position: relative;
+    
+        z-index: 300;
+        background-color: #ffffff;
+        @include var.desktop() {
+            background-color: unset;
+            z-index: 100;
+        }
+    
+        grid-area: nav;
+        min-height: 3.5em;
+    
+        display: flex;
+        flex-direction: row;
+        padding: 1.5em 3em;
+
+        .sidebar-toggle {
+            position: relative;
+            z-index: 300;
+            width: 2.5em;
+            height: 2.5em;
+            cursor: pointer;
+            transition: 0.3s all;
+            margin-top: -0.6em;
+            @include var.desktop() {
+                margin-top: 0;
+            }
+            
+            path {
+                fill: map-get(var.$colors, theme);
+            }
+            
+            &:hover {
+                path {
+                    fill: map-get(var.$colors, dark)
+                }
+            }
+            
+            &.active {
+                margin-left: 50vw;
+                @include var.desktop() {
+                    margin-left: 32vw;
+                }
+                transform: translate(-50%, -50%);
+                transform: rotate(180deg);
+            }
+        }
+    
+        .links {
+            display: none;
+            @include var.desktop() {
+                display: block;
+            }
+    
+            margin-left: auto;
+    
+            button {
+                font-size: min(3vw, 1em);
+                color: map-get(var.$colors, theme);
+                transition: 0.1s all;
+                padding: 0.5em 0.3em;
+                margin: 0 0.5em;
+    
+                &:hover {
+                    color: map-get(var.$colors, dark);
+                    border-bottom: 0.3em solid map-get(var.$colors, dark);
+                }
+    
+                &.active {
+                    border-bottom: 0.3em solid map-get(var.$colors, theme);
+                }
+            }
+        }
+    }
+}
+
+@mixin sidebar() {
+    .sidebar {
+        button {
+            font-size: min(3.5vw, 1.2em);
+            font-weight: bold;
+            display: block;
+            padding: 0.5em 0;
+            margin: 0.5em 0 1em 0;
+            color: map-get(var.$colors, theme);
+    
+            &:hover {
+                border-bottom: 0.3em solid map-get(var.$colors, theme);
+            }
+    
+            &.active {
+                border-bottom: 0.3em solid map-get(var.$colors, theme);
+            }
+        }
+    
+        box-shadow: 0.3em 0 1em 0.1em rgba(0, 0, 0, 0.164);
+        position: absolute;
+        z-index: 200;
+        top: 0;
+        left: 0;
+        width: 0;
+        height: 100vh;
+        background-color: #ffffff;
+        transition: 0.3s all;
+        overflow: hidden;
+        overflow-y: auto;
+        
+        a {
+            display: block;
+            
+            &.head {
+                font-size: min(5vw, 1.7em);
+                margin-bottom: 0.5em;
+                color: map-get(var.$colors, primary);
+    
+                &:hover {
+                    color: map-get(var.$colors, dark);
+                }
+            }
+            
+            &.child {
+                font-size: min(3.5vw, 1.2em);
+                padding-left: 1.8em;
+                margin: 0.5em 0;
+                color: map-get(var.$colors, theme);
+    
+                &:hover {
+                    color: map-get(var.$colors, dark);
+                }
+            }
+        }
+        
+        &.active {
+            width: 100vw;
+            padding: 10vh 1em;
+            @include var.desktop() {
+                padding: 2em 1.5em 1em 2em;
+                width: 30vw;
+            }
+        }
+    }
+}

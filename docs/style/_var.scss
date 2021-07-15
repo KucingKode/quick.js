@@ -1,0 +1,11 @@
+$colors: (
+    primary: #AA3FFF,
+    theme: #7F43FF,
+    dark: #4C29AE
+);
+
+@mixin desktop {
+    @media (min-width: 1200px) {
+        @content
+    }
+}

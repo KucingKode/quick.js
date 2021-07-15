@@ -10,27 +10,60 @@
 
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
+
+    <!-- <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js" defer></script> -->
+    <script src="./lib/marked.min.js" defer></script>
     <script src="./index.js" type="module" defer></script>
 </head>
 <body>
+
     <canvas class="background"></canvas>
+
     <nav>
-        <h1 class="title">Quick.js</h1>
+        <svg class="sidebar-toggle" viewBox="0 0 34 37" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M31.5 14.1699C34.8333 16.0944 34.8333 20.9056 31.5 22.8301L8.25001 36.2535C4.91668 38.178 0.75 35.7724 0.75 31.9234L0.75 5.07662C0.75 1.22762 4.91667 -1.17802 8.25 0.746479L31.5 14.1699Z"/>
+        </svg>
+
+        <div class="links">
+            <button class="homeBtn active">Home</button>
+            <!-- <button>Ecosystem</button> -->
+            <button class="docsBtn">Docs</button>
+            <!-- <button>Support</button> -->
+            <!-- <button>Learn</button> -->
+        </div>
     </nav>
 
-    <div class="main">
-        <h1 class="title">Quick.js</h1>
-        <p class="desc">make your creative coding experiments more fun!</p>
-    </div>
-
-    <div class="buttons">
-        <button><a href="https://github.com/KucingKode/quick.js/releases/download/v1.0.0/quick.js">Download</a></button>
-        <button><a href="https://github.com/KucingKode/quick.js">Github</a></button>
-    </div>
-
     <div class="hero">
-        <img src="./imageQuick.png" alt="">
+        <img src="./logoGiant.png" alt="Quick.js logo">
     </div>
 
+    <div class="main">
+        <div class="home">
+            <h1 class="title">Quick.js</h1>
+            <p class="desc">make your creative coding experiments more fun!</p>
+    
+            <div class="buttons">
+                <button class="gsBtn">Getting Started</button>
+                <button class="download">Download</button>
+                <button class="github">Github</button>
+            </div>
+        </div>
+        <div class="gs md">
+
+        </div>
+        <div class="docs md">
+
+        </div>
+    </div>
+
+    <div class="sidebar">
+        <button class="homeBtn">Home</button>
+        <!-- <button>Ecosystem</button> -->
+        <button class="docsBtn">Docs</button>
+        <button class="gsBtn">Getting Started</button>
+        <!-- <button>Support</button> -->
+        <!-- <button>Learn</button> -->
+    </div>
+    <!-- <div class="popup"></div> -->
 </body>
 </html>

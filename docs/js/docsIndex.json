@@ -1,0 +1,42 @@
+{
+    "std": [
+        "PI",
+        "TWO_PI",
+        "map()",
+        "constraint()",
+        "inverse()",
+        "dist()",
+        "fround()",
+        "min()",
+        "max()",
+        "average()",
+        "random()",
+        "randomChar()",
+        "randomFrom()",
+        "noise.perlin()",
+        "degToRad()",
+        "radToDeg()",
+        "round()",
+        "floor()",
+        "ceil()",
+        "class: Vector2D",
+        "class: Line",
+        "class: Grid",
+        "class: Stack",
+        "class: Queue"
+    ],
+    "fileSys": [
+        "getText()",
+        "getJSON()",
+        "sendText()"
+    ],
+    "colorSys": [
+        "class: RGB",
+        "class: HSL"
+    ],
+    "media": [
+        "watchMouse()",
+        "watchKey()",
+        "watchTouch()"
+    ]
+}

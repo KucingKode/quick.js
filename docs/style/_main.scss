@@ -1,0 +1,138 @@
+@use './var';
+
+@mixin main() {
+    .main {
+        grid-area: main;
+        overflow: hidden;
+        height: 70vh;
+        @include var.desktop() {
+            height: 100%;
+        }
+    
+        
+        .home {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow: auto;
+    
+            @include var.desktop() {
+                padding: 3em 0 3em 5em;
+                align-items: flex-start;
+                justify-content: center;
+            }
+    
+            .title {
+                font-size: min(18vw, 7.2em);
+                font-weight: bold;
+                color: map-get(var.$colors, primary);
+            }
+            .desc {
+                font-size: min(3vw, 1.4em);
+                text-align: center;
+                width: 100%;
+                color: map-get(var.$colors, dark);
+    
+                @include var.desktop() {
+                    text-align: start;
+                }
+            }
+    
+            .buttons {
+                margin-top: 7em;
+                grid-area: buttons;
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+                align-items: center;
+            
+                @include var.desktop() {
+                    justify-content: right;
+                    align-items: flex-start;
+                }
+            
+                button {
+                    background-color: map-get(var.$colors, primary);
+                    width: min(40vw, 15em);
+                    padding: 1.2em 0;
+                    height: max-content;
+                    cursor: pointer;
+                    transition: 0.3s all;
+                    border-radius: 50px;
+                    margin-right: 1em;
+                    display: grid;
+                    place-items: center;
+                    margin: 0.3em;
+            
+                    font-size: min(3.5vw, 1em);
+                    color: #ffffff;
+                    transition: 0.3s all;
+            
+                    &.gsBtn {
+                        font-weight: bold;
+                    }
+            
+                    &.download {
+                        background-color: #ffffff;
+                        border: 0.15em solid map-get(var.$colors, primary);
+            
+                        color: map-get(var.$colors, primary)
+                    }
+            
+                    &.github {
+                        background-color: #C9C7C7;
+            
+                        color: #3b3b3b;
+                    }
+            
+                }
+            }
+    
+        }
+    
+        .docs, .gs {
+            height: 100%;
+            width: 100%;
+            overflow: auto;
+            padding: 1em 2em;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+            
+            @include var.desktop() {
+                padding: 3em 8em;
+            }
+        }
+    }
+}
+
+@mixin hero() {
+    .hero {
+        grid-area: hero;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    
+        height: 20vh;
+        @include var.desktop() {
+            height: 100%;
+        }
+    
+        img {
+            width: 30%;
+            height: 100%;
+            object-fit: contain;
+    
+            @include var.desktop() {
+                width: 80%;
+            }
+        }
+    
+        @include var.desktop() {
+            justify-content: flex-end;
+            align-items: center;
+        }
+    }
+}

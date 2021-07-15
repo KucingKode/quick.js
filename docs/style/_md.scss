@@ -1,0 +1,97 @@
+@use './var';
+
+@mixin md() {
+    .md {
+        p::first-letter {
+            text-transform: capitalize;
+        }
+    
+        h1 {
+            font-size: min(8vw, 4em);
+            color: #1f1f1f;
+        }
+    
+        img {
+            width: 100%;
+            @include var.desktop() {
+                width: 80%;
+            }
+            object-fit: contain;
+        }
+    
+        h2 {
+            font-size: min(5vw, 3em);
+            color: #1f1f1f;
+            margin: 0.8em 0;
+    
+            strong {
+                color: map-get(var.$colors, dark);
+            }
+        }
+    
+        h3 {
+            font-size: min(4vw, 1.6em);
+        }
+    
+        hr {
+            margin: 1em 0;
+            border-color: map-get(var.$colors, dark);
+        }
+    
+        p {
+            color: #363636;
+            font-size: min(3.5vw, 1.3em);
+            line-height: 1.3em;
+            margin-bottom: 0.5em;
+        }
+    
+        a {
+            color: map-get(var.$colors, primary);
+            text-decoration: underline;
+        }
+    
+        strong {
+            color: map-get(var.$colors, theme);
+        }
+    
+        li::marker {
+            content: '# ';
+            color: map-get(var.$colors, dark);
+        }
+        
+        ul {
+            font-size: min(3vw, 1em);
+            // padding-left: 3em;
+            margin-bottom: 3em;
+            margin: 1em 0 0 0;
+        }
+    
+        code {
+            padding: 0.1em 1em 0.1em 0;
+            color: #7F43FF;
+        }
+    
+        table {
+            border: 0.1em solid map-get(var.$colors, dark);
+            border-collapse: collapse;
+            margin: 0.5em 0 2em 0;
+            width: 100%;
+    
+            td, th {
+                border: 0.1em solid map-get(var.$colors, dark);
+                font-size: min(4vw, 1.3em);
+                padding: 0.5em 0 0.5em 0.2em;
+            }
+        }
+    
+        blockquote {
+            margin: 0.5em 0 2em 0;
+            padding: 0.5em 0 0.5em 1em;
+            border-left: 0.5em solid map-get(var.$colors, dark);
+    
+            p, h1, h2, h3, strong {
+                color: #1f1f1f;
+            }
+        }
+    }
+}

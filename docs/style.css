@@ -6,23 +6,46 @@
   font-family: "Work Sans", sans-serif;
 }
 
-body {
-  display: grid;
-  height: 100vh;
-  overflow: hidden;
-  grid-template-columns: 60vw 40vw;
-  grid-template-rows: 1fr 6fr 3.5fr;
-  grid-template-areas: "nav nav" "main hero" "buttons hero";
+*::-webkit-scrollbar {
+  width: 1em;
 }
-@media (max-width: 767.98px) {
+
+*::-webkit-scrollbar-track {
+  background-color: #dfdfdf;
+  box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.3);
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #AA3FFF;
+}
+
+body {
+  height: 100vh;
+  background-color: #ffffff;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+@media (min-width: 1200px) {
   body {
-    grid-template-columns: 100vw;
-    grid-template-rows: 1fr 6fr 4fr;
-    grid-template-areas: "nav" "main" "buttons";
+    display: grid;
+    overflow: hidden;
+    grid-template-columns: 30vw 70vw;
+    grid-template-rows: 10vh 10vh 70vh;
+    grid-template-areas: "nav nav" "hero main" "hero main";
   }
 }
 
+button {
+  outline: none;
+  border: none;
+  background: none;
+  cursor: pointer;
+  text-transform: capitalize;
+}
+
 a {
+  cursor: pointer;
   text-decoration: none;
 }
 
@@ -31,77 +54,338 @@ canvas {
   z-index: -1;
   width: 100vw;
   height: 100vh;
-  background-image: linear-gradient(170deg, #4C29AE 70%, #7C27BE);
 }
 
 nav {
+  position: relative;
+  z-index: 300;
+  background-color: #ffffff;
   grid-area: nav;
   min-height: 3.5em;
-}
-nav .title {
-  color: #ffffff;
-  font-size: min(4.5vw, 2em);
-  padding: 0.5em 1em;
-}
-
-.main {
-  grid-area: main;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 3em 0 3em 3em;
-}
-.main .title {
-  font-size: min(17vw, 8em);
-  font-weight: bold;
-  color: #ffffff;
-}
-.main .desc {
-  font-size: min(3.5vw, 1.5em);
-  width: 100%;
-  color: #E8E8E8;
-}
-
-.buttons {
-  grid-area: buttons;
   display: flex;
   flex-direction: row;
-  justify-content: right;
-  align-items: flex-start;
-  padding: 0 3em;
+  padding: 1.5em 3em;
 }
-.buttons button {
-  all: unset;
-  background-color: #ffffff;
-  padding: 0.9em 1.5em;
-  margin: 0 0 0 1em;
-  height: max-content;
+@media (min-width: 1200px) {
+  nav {
+    background-color: unset;
+    z-index: 100;
+  }
+}
+nav .sidebar-toggle {
+  position: relative;
+  z-index: 300;
+  width: 2.5em;
+  height: 2.5em;
   cursor: pointer;
   transition: 0.3s all;
+  margin-top: -0.6em;
 }
-.buttons button a {
-  font-size: min(3.5vw, 1.5em);
-  color: #7C27BE;
-  transition: 0.3s all;
+@media (min-width: 1200px) {
+  nav .sidebar-toggle {
+    margin-top: 0;
+  }
 }
-.buttons button:hover, .buttons button:focus, .buttons button:focus-within {
-  background-color: #180625;
+nav .sidebar-toggle path {
+  fill: #7F43FF;
 }
-.buttons button:hover a, .buttons button:focus a, .buttons button:focus-within a {
-  padding: 0.7em 2em;
-  color: #ffffff;
+nav .sidebar-toggle:hover path {
+  fill: #4C29AE;
+}
+nav .sidebar-toggle.active {
+  margin-left: 50vw;
+  transform: translate(-50%, -50%);
+  transform: rotate(180deg);
+}
+@media (min-width: 1200px) {
+  nav .sidebar-toggle.active {
+    margin-left: 32vw;
+  }
+}
+nav .links {
+  display: none;
+  margin-left: auto;
+}
+@media (min-width: 1200px) {
+  nav .links {
+    display: block;
+  }
+}
+nav .links button {
+  font-size: min(3vw, 1em);
+  color: #7F43FF;
+  transition: 0.1s all;
+  padding: 0.5em 0.3em;
+  margin: 0 0.5em;
+}
+nav .links button:hover {
+  color: #4C29AE;
+  border-bottom: 0.3em solid #4C29AE;
+}
+nav .links button.active {
+  border-bottom: 0.3em solid #7F43FF;
 }
 
 .hero {
   grid-area: hero;
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
+  align-items: center;
+  height: 20vh;
+}
+@media (min-width: 1200px) {
+  .hero {
+    height: 100%;
+  }
+}
+.hero img {
+  width: 30%;
+  height: 100%;
+  object-fit: contain;
+}
+@media (min-width: 1200px) {
+  .hero img {
+    width: 80%;
+  }
+}
+@media (min-width: 1200px) {
+  .hero {
+    justify-content: flex-end;
+    align-items: center;
+  }
+}
+
+.main {
+  grid-area: main;
+  overflow: hidden;
+  height: 70vh;
+}
+@media (min-width: 1200px) {
+  .main {
+    height: 100%;
+  }
+}
+.main .home {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: auto;
+}
+@media (min-width: 1200px) {
+  .main .home {
+    padding: 3em 0 3em 5em;
+    align-items: flex-start;
+    justify-content: center;
+  }
+}
+.main .home .title {
+  font-size: min(18vw, 7.2em);
+  font-weight: bold;
+  color: #AA3FFF;
+}
+.main .home .desc {
+  font-size: min(3vw, 1.4em);
+  text-align: center;
+  width: 100%;
+  color: #4C29AE;
+}
+@media (min-width: 1200px) {
+  .main .home .desc {
+    text-align: start;
+  }
+}
+.main .home .buttons {
+  margin-top: 7em;
+  grid-area: buttons;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
   align-items: center;
 }
-@media (max-width: 767.98px) {
-  .hero {
-    display: none;
+@media (min-width: 1200px) {
+  .main .home .buttons {
+    justify-content: right;
+    align-items: flex-start;
   }
+}
+.main .home .buttons button {
+  background-color: #AA3FFF;
+  width: min(40vw, 15em);
+  padding: 1.2em 0;
+  height: max-content;
+  cursor: pointer;
+  transition: 0.3s all;
+  border-radius: 50px;
+  margin-right: 1em;
+  display: grid;
+  place-items: center;
+  margin: 0.3em;
+  font-size: min(3.5vw, 1em);
+  color: #ffffff;
+  transition: 0.3s all;
+}
+.main .home .buttons button.gsBtn {
+  font-weight: bold;
+}
+.main .home .buttons button.download {
+  background-color: #ffffff;
+  border: 0.15em solid #AA3FFF;
+  color: #AA3FFF;
+}
+.main .home .buttons button.github {
+  background-color: #C9C7C7;
+  color: #3b3b3b;
+}
+.main .docs, .main .gs {
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  padding: 1em 2em;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+@media (min-width: 1200px) {
+  .main .docs, .main .gs {
+    padding: 3em 8em;
+  }
+}
+
+.sidebar {
+  box-shadow: 0.3em 0 1em 0.1em rgba(0, 0, 0, 0.164);
+  position: absolute;
+  z-index: 200;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100vh;
+  background-color: #ffffff;
+  transition: 0.3s all;
+  overflow: hidden;
+  overflow-y: auto;
+}
+.sidebar button {
+  font-size: min(3.5vw, 1.2em);
+  font-weight: bold;
+  display: block;
+  padding: 0.5em 0;
+  margin: 0.5em 0 1em 0;
+  color: #7F43FF;
+}
+.sidebar button:hover {
+  border-bottom: 0.3em solid #7F43FF;
+}
+.sidebar button.active {
+  border-bottom: 0.3em solid #7F43FF;
+}
+.sidebar a {
+  display: block;
+}
+.sidebar a.head {
+  font-size: min(5vw, 1.7em);
+  margin-bottom: 0.5em;
+  color: #AA3FFF;
+}
+.sidebar a.head:hover {
+  color: #4C29AE;
+}
+.sidebar a.child {
+  font-size: min(3.5vw, 1.2em);
+  padding-left: 1.8em;
+  margin: 0.5em 0;
+  color: #7F43FF;
+}
+.sidebar a.child:hover {
+  color: #4C29AE;
+}
+.sidebar.active {
+  width: 100vw;
+  padding: 10vh 1em;
+}
+@media (min-width: 1200px) {
+  .sidebar.active {
+    padding: 2em 1.5em 1em 2em;
+    width: 30vw;
+  }
+}
+
+.md p::first-letter {
+  text-transform: capitalize;
+}
+.md h1 {
+  font-size: min(8vw, 4em);
+  color: #1f1f1f;
+}
+.md img {
+  width: 100%;
+  object-fit: contain;
+}
+@media (min-width: 1200px) {
+  .md img {
+    width: 80%;
+  }
+}
+.md h2 {
+  font-size: min(5vw, 3em);
+  color: #1f1f1f;
+  margin: 0.8em 0;
+}
+.md h2 strong {
+  color: #4C29AE;
+}
+.md h3 {
+  font-size: min(4vw, 1.6em);
+}
+.md hr {
+  margin: 1em 0;
+  border-color: #4C29AE;
+}
+.md p {
+  color: #363636;
+  font-size: min(3.5vw, 1.3em);
+  line-height: 1.3em;
+  margin-bottom: 0.5em;
+}
+.md a {
+  color: #AA3FFF;
+  text-decoration: underline;
+}
+.md strong {
+  color: #7F43FF;
+}
+.md li::marker {
+  content: "# ";
+  color: #4C29AE;
+}
+.md ul {
+  font-size: min(3vw, 1em);
+  margin-bottom: 3em;
+  margin: 1em 0 0 0;
+}
+.md code {
+  padding: 0.1em 1em 0.1em 0;
+  color: #7F43FF;
+}
+.md table {
+  border: 0.1em solid #4C29AE;
+  border-collapse: collapse;
+  margin: 0.5em 0 2em 0;
+  width: 100%;
+}
+.md table td, .md table th {
+  border: 0.1em solid #4C29AE;
+  font-size: min(4vw, 1.3em);
+  padding: 0.5em 0 0.5em 0.2em;
+}
+.md blockquote {
+  margin: 0.5em 0 2em 0;
+  padding: 0.5em 0 0.5em 1em;
+  border-left: 0.5em solid #4C29AE;
+}
+.md blockquote p, .md blockquote h1, .md blockquote h2, .md blockquote h3, .md blockquote strong {
+  color: #1f1f1f;
 }
 
 /*# sourceMappingURL=style.css.map */

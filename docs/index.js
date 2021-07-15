@@ -6,16 +6,11 @@ Quick.link(quickCanvas)
 Quick.createSketch({
     title: 'Quick.js',
     note: 'Quick.js official website!'
-}, () => {
+}, async () => {
     const {std, fileSys} = Quick.Core
     const {Artisan, Canvas2D} = quickCanvas.lib
 
-    fileSys.getText('./lib/quick.js', (_, ctx) => {
-        const downloadBtn = document.querySelector('.download')
-        downloadBtn.addEventListener('click', () => {
-            fileSys.sendText(ctx, 'quick.js')
-        })
-    })
+    await import('./js/sectionLoader.js')
 
     const canvas = new Canvas2D(document.querySelector('canvas'))
     const a = new Artisan(canvas)
