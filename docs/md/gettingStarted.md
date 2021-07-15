@@ -12,15 +12,15 @@ ___
 
 - Then write this code into your `index.html` file
 
-- ![html template](https://github.com/KucingKode/quick.js/raw/main/assets/html1.png)  
+- ![html template](./assets/html1.png)  
 
 - Then write this code into tour `index.js` file
 
-- ![js template](https://github.com/KucingKode/quick.js/raw/main/assets/js.png)  
+- ![js template](./assets/js.png)  
 
 - add this line to your `index.html` file
 
-- ![link js in html](https://github.com/KucingKode/quick.js/raw/main/assets/html2.png)
+- ![link js in html](./assets/html2.png)
 
 - Download the `live server` extension on your Visual Studio Code
 

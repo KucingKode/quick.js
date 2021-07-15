@@ -1,6 +1,6 @@
 # Quick.js
 
-![img](./img/logo.png)
+![img](https://github.com/KucingKode/quick.js/raw/main/assets/logo.png)
 
 Quick.js is a library that is easy to use and read, even for beginners or people who have never coded. Quick.js focuses on **making creative experiments easier** to do.
 
@@ -49,23 +49,68 @@ ___
 
 - Then write this code into your `index.html` file
 
-- ![html template](https://github.com/KucingKode/quick.js/raw/main/assets/html1.png)  
+```html
+  <!-- index.html -->
+
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+      <title>{ any Title }</title>
+      <script src="path/to/index.js" type="module" defer></script>
+  </head>
+  <body>
+  </body>
+  </html>
+```  
 
 - Then write this code into tour `index.js` file
 
-- ![js template](https://github.com/KucingKode/quick.js/raw/main/assets/js.png)  
+```js
+// index.js
+
+// Import Quick.js into your index.js file
+const _Quick = await import('../build/quick.js')
+const Quick = _Quick.default
+// another form : import Quick from '../build/quick.js'
+
+// Create new Quick.js sketch
+Quick.createSketch({
+    title: 'any title'
+}, () => {
+    // get std library from Quick.js core
+    const {std} = Quick.Core
+
+    // do something...
+})
+
+// Run quick.js
+Quick.run()
+```
 
 - add this line to your `index.html` file
 
-- ![link js in html](https://github.com/KucingKode/quick.js/raw/main/assets/html2.png)
+```html
+  <!-- index.html -->
+
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+      <title>{ any Title }</title>
+      <!-- Link index.js -->
+      <script src="path/to/index.js" type="module" defer></script>
+  </head>
+  <body>
+  </body>
+  </html>
+```
 
 - Download the `live server` extension on your Visual Studio Code
 
-- ![live server icon](https://github.com/KucingKode/quick.js/raw/main/assets/liveServer.png)
+![live server icon](https://github.com/KucingKode/quick.js/raw/main/assets/liveServer.png)
 
 - On the bottom left on your visual studio code, click `Go Live` button
 
-- ![go live button](https://github.com/KucingKode/quick.js/raw/main/assets/goLive.png)
+![go live button](https://github.com/KucingKode/quick.js/raw/main/assets/goLive.png)
 
 - Open your web browser on `localhost:{ port number on the bottom right your visual studio code }`
 
@@ -132,10 +177,6 @@ ___
 
     - method : rotate()
 
-- ### **media**
-
-  - watcher: watchMouse(), watchKey(), watchTouch()
-
 - ### **fileSys**
 
   - utility : url, path()
@@ -154,6 +195,10 @@ ___
     - components : h, s, l, a, comp
     - method : toHex(), toString()
 
+- ### **media**
+
+  - watcher: watchMouse(), watchKey(), watchTouch()
+  
 <!-- 
 ## **Future Plan**
 

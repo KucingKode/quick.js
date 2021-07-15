@@ -29,7 +29,7 @@ function loadGs() {
             './md/about.md',
             './md/gettingStarted.md'
         ]
-        
+
         // load and compile markdowns
         markdowns.forEach(async (url) => {
             await fileSys.getText(url, (err, ctx) => {
@@ -86,7 +86,7 @@ function init() {
     docsBtns.forEach(btn => btn.addEventListener('click', loadDocs))
 
     downloadBtn.addEventListener('click', () => {
-        window.location = 'https://github.com/KucingKode/quick.js/releases/download/v1.0.0/quick.js'
+        window.location = 'https://github.com/KucingKode/quick.js/releases/download/v1.0.0-alpha/quick.js'
     })
     githubBtn.addEventListener('click', () => {
         window.location = 'https://github.com/KucingKode/quick.js'
