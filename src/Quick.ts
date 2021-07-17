@@ -279,7 +279,7 @@ class Quick {
     }
 }
 
-const Q = new Quick
+const Q = new Quick()
 
 window.Quick = new class {
     get help() {
@@ -426,6 +426,6 @@ window.Quick = new class {
         )
         return
     }
-}
+}()
 
 export default Q as Quick
