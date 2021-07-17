@@ -1,6 +1,13 @@
 ___
 
+
 # **Getting Started**
+
+## **Easy way:**
+
+the easiest way to use is to use it on Quick.js [code sandbox template](https://codesandbox.io/s/quickjs-template-2k95c)
+
+## **Offline way:**
 
 - [download visual studio code](https://code.visualstudio.com/download) or your favorite code editor, for your code editor
 

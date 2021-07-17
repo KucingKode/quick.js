@@ -32,6 +32,12 @@ ___
 
 ___
 
+### **Easy way**
+
+the easiest way to use is to use it on Quick.js [code sandbox template](https://codesandbox.io/s/quickjs-template-2k95c)
+
+### **Offline way**
+
 - [download visual studio code](https://code.visualstudio.com/download) or your favorite editor, for your code editor
 
 - [download quick.js library](https://github.com/KucingKode/quick.js/releases/download/v2.0.0-alpha/quick.js), then save it on your project folder
