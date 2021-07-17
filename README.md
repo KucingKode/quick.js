@@ -26,22 +26,15 @@ ___
 
 ### [Getting Started🐱‍👤](#Getting_Started)
 
-### Reference📃
-
-**For detail reference, please visit [our website](https://kucingkode.github.io/quick.js/) on <https://kucingkode.github.io/quick.js/>**
-
-- [std](#std)
-- [media](#media)
-- [fileSys](#fileSys)
-- [colorSys](#colorSys)
+**For documentation, visit [Quick.js website](https://kucingkode.github.io/quick.js/) on <https://kucingkode.github.io/quick.js/>**
 
 ## **Getting_Started**
 
 ___
 
-- [download visual studio code](https://code.visualstudio.com/download), for your code editor
+- [download visual studio code](https://code.visualstudio.com/download) or your favorite editor, for your code editor
 
-- [download quick.js library](https://github.com/KucingKode/quick.js/releases/download/v1.0.0/quick.js), then save it on your project folder
+- [download quick.js library](https://github.com/KucingKode/quick.js/releases/download/v2.0.0-alpha/quick.js), then save it on your project folder
 
 - Create new file, then name it `index.html`
 
@@ -74,14 +67,9 @@ const Quick = _Quick.default
 // another form : import Quick from '../build/quick.js'
 
 // Create new Quick.js sketch
-Quick.createSketch({
-    title: 'any title'
-}, () => {
-    // get std library from Quick.js core
-    const {std} = Quick.Core
-
+Quick.sketch = (lib) => {
     // do something...
-})
+}
 
 // Run quick.js
 Quick.run()
@@ -121,83 +109,6 @@ For more information you can go to our [website](https://kucingkode.github.io/qu
 
 Recomended links:  
 Coming Soon...
-
-## **API Reference**
-
-___
-
-**For more details reference, please visit [our website](https://kucingkode.github.io/quick.js/)**
-
-- ### **std**
-
-  - constant : **PI**, **TWO_PI**
-
-  - random : random(), randomChar(), randomFrom(), noise
-
-  - array : min(), max(), average()
-
-  - number : map(), constraint(), inverse(), dist(), radToDeg(), degToRad()
-
-  - round : round(), fround(), floor(), ceil()
-
-  - class : **Vector2D**
-    - static : clone(), fromAdd(), fromSub(), random2D(), dot(), cross()
-
-    - components : x, y, limit,  
-    angle, mag, unit, normal
-
-    - basic method : add(), sub(), mult(), div(), rotate()
-    - shorthand : $add(), $sub(), $set()
-
-  - class : **Stack**
-    - static: clone()
-
-    - components : data, size
-
-    - method : push(), pop(), peek(), isFull(), isEmpty()
-
-  - class : **Queue**
-    - static: clone()
-
-    - components : data, size
-
-    - method : enqueue(), dequeue(), peek(), isFull(), isEmpty()
-
-  - class : **Grid**
-    - static : clone(), fromArea()
-
-    - components : data, cols, rows, initialVal
-
-    - method : iterate(), get(), set(), getCol(), getRow()
-
-  - class : **Line**
-    - static : clone(), from()
-
-    - component : x, y, mag, angle, unit, start, end
-
-    - method : rotate()
-
-- ### **fileSys**
-
-  - utility : url, path()
-
-  - get file : getText(), getJSON(), sendText()
-
-- ### **colorSys**
-
-  - RGB
-    - static : fromHex(), fromHSL(), clone()
-    - components : r, g, b, a, comp
-    - method : toHex(), toString(), normalize()
-
-  - HSL
-    - static : fromHex(), fromRGB(), clone()
-    - components : h, s, l, a, comp
-    - method : toHex(), toString()
-
-- ### **media**
-
-  - watcher: watchMouse(), watchKey(), watchTouch()
   
 <!-- 
 ## **Future Plan**

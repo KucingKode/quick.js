@@ -7,7 +7,7 @@
 >
 > **Syntax:**  
 > Create new Stack:  
-> `new std.Stack(data?: any[], size?: number)`
+> `new Stack(data?: any[], size?: number)`
 >
 > Parameter | Type     | Description
 > --------- | -------- | --------------------------  
@@ -15,11 +15,11 @@
 > `size` | `number` | **Optional** stack size
 >
 > Clone a stack :  
-> `std.Stack.clone(stack: Stack)`  
+> `Stack.clone(stack: Stack)`  
 >
 > Parameter | Type     | Description
 > --------- | -------- | --------------------------  
-> `stack` | `std.Stack` | **Required** stack to be cloned
+> `stack` | `Stack` | **Required** stack to be cloned
 >
 > **Components:**
 >
@@ -27,8 +27,6 @@
 > --------- | -------- | --------------------------  
 > `data`       | `number` | stack data  
 > `size`       | `number` | stack size  
-> `isFull`   | `boolean` | stack is full condition  
-> `isEmpty`     | `boolean` | stack is empty condition
 >
 > **Methods:**
 >
@@ -45,8 +43,20 @@
 > Parameter | Type     | Description
 > --------- | -------- | --------------------------
 >
-> `.peek()`  
+> `.peek(): any`  
 > get the top data of the stack
+>
+> Parameter | Type     | Description
+> --------- | -------- | --------------------------
+>
+> `.isFull(): boolean`  
+> check whether stack is full
+>
+> Parameter | Type     | Description
+> --------- | -------- | --------------------------
+>
+> `.isEmpty(): boolean`  
+> check whether stack is empty
 >
 > Parameter | Type     | Description
 > --------- | -------- | --------------------------

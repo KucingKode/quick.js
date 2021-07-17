@@ -7,7 +7,7 @@
 >
 > **Syntax:**  
 > Create new queue:  
-> `new std.Queue(data?: any[], size?: number)`
+> `new Queue(data?: any[], size?: number)`
 >
 > Parameter | Type     | Description
 > --------- | -------- | --------------------------  
@@ -15,11 +15,11 @@
 > `size` | `number` | **Optional** queue size
 >
 > Clone a queue :  
-> `std.Queue.clone(Queue: Queue)`  
+> `Queue.clone(Queue: Queue)`  
 >
 > Parameter | Type     | Description
 > --------- | -------- | --------------------------  
-> `Queue` | `std.Queue` | **Required** queue to be cloned
+> `Queue` | `Queue` | **Required** queue to be cloned
 >
 > **Components:**
 >
@@ -45,8 +45,20 @@
 > Parameter | Type     | Description
 > --------- | -------- | --------------------------
 >
-> `.peek()`  
+> `.peek(): any`  
 > get the top data of the queue
+>
+> Parameter | Type     | Description
+> --------- | -------- | --------------------------
+>
+> `.isFull(): boolean`  
+> check whether queue is full
+>
+> Parameter | Type     | Description
+> --------- | -------- | --------------------------
+>
+> `.isEmpty(): boolean`  
+> check whether queue is empty
 >
 > Parameter | Type     | Description
 > --------- | -------- | --------------------------

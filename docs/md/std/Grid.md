@@ -7,7 +7,7 @@
 >
 > **Syntax:**  
 > Create new grid :  
-> `new std.Grid(rows: number, cols: number, cellInitialValue?: any)`
+> `new Grid(rows: number, cols: number, cellInitialValue?: any)`
 >
 > Parameter | Type     | Description
 > --------- | -------- | --------------------------  
@@ -16,7 +16,7 @@
 > `cellInitialValue` | `any` | **Optional** grid initial cells value
 >
 > Create new grid from an area :  
-> `std.Grid.fromArea(areaWidth: number, areaHeight: number, cellWidth: number, cellHeight: number, cellInitialValue?: any)`  
+> `Grid.fromArea(areaWidth: number, areaHeight: number, cellWidth: number, cellHeight: number, cellInitialValue?: any)`  
 >
 > Parameter | Type     | Description
 > --------- | -------- | --------------------------  
@@ -27,7 +27,7 @@
 > `cellInitialValue` | `any` | **Optional** grid initial cells value
 >
 > Clone a grid :  
-> `std.Grid.clone(grid: Grid)`  
+> `Grid.clone(grid: Grid)`  
 >
 > Parameter | Type     | Description
 > --------- | -------- | --------------------------  
@@ -60,7 +60,7 @@
 > `row` | `number` | **Required** row
 > `newValue` | `any` | **Required** new value to be set into the cell
 >
-> `.get(col: number, row: number)`  
+> `.get(col: number, row: number): any`  
 > get value in grid specific cell
 >
 > Parameter | Type     | Description
@@ -68,14 +68,14 @@
 > `col` | `number` | **Required** column
 > `row` | `number` | **Required** row
 >
-> `.getCol(column: number)`  
+> `.getCol(column: number): any[]`  
 > get values inside a column
 >
 > Parameter | Type     | Description
 > --------- | -------- | --------------------------  
 > `col` | `number` | **Required** column
 >
-> `.getRow(row: number)`  
+> `.getRow(row: number): any[]`  
 > get values inside a row
 >
 > Parameter | Type     | Description

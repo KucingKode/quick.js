@@ -4,28 +4,16 @@ import typescript from '@rollup/plugin-typescript'
 /**
  * @type {import('rollup').RollupOptions}
  */
-const config = [
-    {
-        input: 'src/index.ts',
-        output: {
-                file: 'build/quick.js',
-                format: 'esm'
-        },
-        plugins: [
-            ts()
-        ]
+const config = {
+    input: 'src/index.ts',
+    output: {
+            file: 'build/quick.js',
+            format: 'esm'
     },
-    {
-        input: 'src/lib/Canvas/index.ts',
-        output: {
-                file: 'build/quick.canvas.js',
-                format: 'esm'
-        },
-        plugins: [
-            ts()
-        ]
-    }
-]
+    plugins: [
+        ts()
+    ]
+}
 
 function ts() {
     return typescript({

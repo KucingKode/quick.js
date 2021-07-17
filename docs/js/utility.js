@@ -27,7 +27,11 @@ function docsSidebar() {
         a.classList.add('head')
         a.innerText = head
 
-        const href = head.replace(': ', '-').replace(/[\(\)\.]/g, '').toLowerCase()
+        const href = head
+            .replace(/[\(\)\.]/g, '')
+            .replace(/ & /g, '--')
+            .replace(/[: ]/g, '-')
+            .toLowerCase()
         a.href = `#${href}`
         
         docsSidebar.appendChild(a)

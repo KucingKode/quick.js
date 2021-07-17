@@ -1,3 +1,5 @@
+import Kit2D from './Kit2D'
+
 class Canvas2D {
     /**
      * @description HTML Canvas element for drawing
@@ -10,6 +12,11 @@ class Canvas2D {
      */
     private _c: CanvasRenderingContext2D = undefined
     /**
+     * @description HTML Canvas context 2D
+     * @private
+     */
+    private _kit: Kit2D = undefined
+    /**
      * @description State of resize
      * @private
      */
@@ -17,40 +24,21 @@ class Canvas2D {
 
     /**
      * 
-     * @param {HTMLCanvasElement} canvas canvas HTML element
-     */
-    constructor(canvas: HTMLCanvasElement) {
-        if(!canvas) {
-            throw new Error(`canvas can't be null`)
-        }
-        this._canvas = canvas
-        
-        window.addEventListener('resize', () => {
-            this.resize()
-        })
-
-        this.resize()
-    }
-
-    // Generator
-
-    /**
-     * @description Create a new Canvas element
-     * 
      * @param {string} width width of new canvas
      * @param {string} height height of new canvas
      * @param {HTMLElement | string} parent parent element of the new canvas
      * @returns {Canvas2D}
      */
-    static create(width: string, height: string, parent: HTMLElement | string): Canvas2D {
+    constructor(width: string, height: string, parent: HTMLElement | string) {
         if(!parent) {
             throw new Error(`Parent must be a string or an element`)
         }
-        const canvas = document.createElement('canvas')
+
+        this._canvas = document.createElement('canvas')
         let parentEl: HTMLElement
 
-        canvas.style.width = width
-        canvas.style.height = height
+        this._canvas.style.width = width
+        this._canvas.style.height = height
 
         if(typeof parent == 'string') {
             parentEl = document.querySelector(parent)
@@ -58,8 +46,30 @@ class Canvas2D {
             parentEl = parent
         }
 
-        parentEl.appendChild(canvas)
-        return new Canvas2D(canvas)
+        parentEl.appendChild(this._canvas)
+        this.resize()
+
+        window.addEventListener('resize', () => {
+            this.resize()
+        })
+    }
+
+    // Generator
+    /**
+     * 
+     * @param {HTMLCanvasElement} canvas canvas HTML element
+     */
+    static fromCanvas(canvas: HTMLCanvasElement): Canvas2D {
+        if(!canvas) {
+            throw new Error(`canvas can't be null`)
+        }
+        const c = new Canvas2D('0px','0px', 'body')
+        c._canvas.remove()
+
+        c._canvas = canvas
+        c.resize()
+
+        return c
     }
 
     // Operations
@@ -106,28 +116,29 @@ class Canvas2D {
         this.resize()
     }
 
-    /**
-     * @description Canvas element
-     * @type {HTMLCanvasElement}
-     */
-    get element(): HTMLCanvasElement {
-        return this._canvas
-    }
-    set element(element: HTMLCanvasElement) {
-        console.warn(`It's unrecomended to change the canvas element!`)
-        this._canvas = element
-    }
-
     // Getters
     /**
      * @description Context 2d of Canvas element
      * @type {CanvasRenderingContext2D}
      */
-    get c(): CanvasRenderingContext2D {
+    get ctx(): CanvasRenderingContext2D {
         if(this._resized || !this._c) {
             this._c = this._canvas.getContext('2d')
         }
         return this._c
+    }
+
+    /**
+     * @description Kit 2D of canvas, Kit 2D is object contain
+     * improved canvas drawing functions
+     * 
+     * @type {Kit2D}
+     */
+    get kit(): Kit2D {
+        if(!this._kit) {
+            this._kit = new Kit2D(this)
+        }
+        return this._kit
     }
 
     /**
@@ -137,6 +148,7 @@ class Canvas2D {
     get style(): CSSStyleDeclaration {
         return this._canvas.style
     }
+
     /**
      * @description Computed style of Canvas element
      * @type {CSSStyleDeclaration}
@@ -145,9 +157,21 @@ class Canvas2D {
         return getComputedStyle(this._canvas)
     }
 
-    get pos(): [x: number, y: number] {
+    /**
+     * @description HTML element of Canvas2D
+     * @type {HTMLCanvasElement}
+     */
+    get element(): HTMLCanvasElement {
+        return this._canvas
+    }
+
+    /**
+     * @description canvas position
+     * @type {{x: number, y: number}}
+     */
+    get pos(): {x: number, y: number} {
         const bounding = this._canvas.getBoundingClientRect()
-        return [bounding.top, bounding.left]
+        return {x: bounding.top, y: bounding.left}
     }
 }
 

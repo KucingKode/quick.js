@@ -2,9 +2,9 @@ ___
 
 # **Getting Started**
 
-- [download visual studio code](https://code.visualstudio.com/download), for your code editor
+- [download visual studio code](https://code.visualstudio.com/download) or your favorite code editor, for your code editor
 
-- [download quick.js library](https://github.com/KucingKode/quick.js/releases/download/v1.0.0/quick.js), then save it on your project folder
+- [download quick.js library](https://github.com/KucingKode/quick.js/releases/download/v2.0.0-alpha/quick.js), then save it on your project folder
 
 - Create new file, then name it `index.html`
 

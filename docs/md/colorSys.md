@@ -1,10 +1,6 @@
 ___
 
-# **colorSys**
-
-colorSys is a part of the quick.js core library, colorSys contains some functions manipulating colors, Which is very useful for your sketch.
-
-## **class**
+## **Color System**
 
 - ### **class: RGB**
 

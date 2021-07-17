@@ -21,30 +21,30 @@ class Grid<T> {
     private _data: T[][] = []
 
     /**
-     * @description Grid segments initial value
+     * @description Grid cells initial value
      * @type {any}
      */
-    private _initialVal: any = null
+    private _cellInitialValue: any = null
 
     /**
-     * @description Set initial value to a segment
+     * @description Set initial value to a cell
      * @param {number} i
      * @param {number} j
      * @private
      */
     private setInitialVal(i, j) {
         let val
-        switch (typeof this._initialVal) {
+        switch (typeof this._cellInitialValue) {
             case ('function'): {
-                val = this._initialVal()
+                val = this._cellInitialValue()
                 break;
             }
             case ('object'): {
-                val = JSON.parse(JSON.stringify(this._initialVal))
+                val = JSON.parse(JSON.stringify(this._cellInitialValue))
                 break;
             }
             default: {
-                val = this._initialVal
+                val = this._cellInitialValue
                 break;
             }
         }
@@ -55,13 +55,13 @@ class Grid<T> {
      * 
      * @param {number} rows Grid total rows
      * @param {number} columns Grid total columns
-     * @param {?any} [segmentInitial=null] Grid segments initial value
+     * @param {any=} [cellInitialValue=null] Grid cells initial value
      */
-    constructor(rows: number, columns: number, segmentInitial: any = null) {
+    constructor(rows: number, columns: number, cellInitialValue: any = null) {
         this._rows = rows
         this._cols = columns
 
-        this._initialVal = segmentInitial
+        this._cellInitialValue = cellInitialValue
         
         for(let i = 0; i < rows; i++) {
             this._data[i] = []
@@ -77,14 +77,14 @@ class Grid<T> {
      * 
      * @param {number} areaWidth Grid width
      * @param {number} areaHeight Grid height
-     * @param {number} segmentWidth One grid segment width
-     * @param {number} segmentHeight One grid segment height
-     * @param {any} segmentInitial Grid segments initial value
+     * @param {number} cellWidth One grid cell width
+     * @param {number} cellHeight One grid cell height
+     * @param {any=} cellInitialValue Grid cells initial value
      * 
      * @returns {Grid} New Grid
      */
-    static fromArea(areaWidth: number, areaHeight: number, segmentWidth: number, segmentHeight: number, segmentInitial: any): Grid<any> {
-        return new Grid(util.floor(areaHeight / segmentHeight), util.floor(areaWidth / segmentWidth), segmentInitial)
+    static fromArea(areaWidth: number, areaHeight: number, cellWidth: number, cellHeight: number, cellInitialValue: any): Grid<any> {
+        return new Grid(util.floor(areaHeight / cellHeight), util.floor(areaWidth / cellWidth), cellInitialValue)
     }
 
     /**
@@ -117,19 +117,19 @@ class Grid<T> {
     }
 
     /**
-     * @description Get a data from a grid segment
+     * @description Get a data from a grid cell
      * 
-     * @param {number} row Segment row
-     * @param {number} col Segment column
-     * @returns {any} data that stored segment
+     * @param {number} row cell row
+     * @param {number} col cell column
+     * @returns {any} data that stored cell
      */
     get(col: number, row: number): T {
         return this._data[row][col]
     }
     /**
-     * @description Change a data of a grid segment
+     * @description Change a data of a grid cell
      * 
-     * @param {number} row Segment row
+     * @param {number} row cell row
      * @param {number} col Segemnt column
      * @param {any} newValue New value
      * @returns {void}
@@ -181,16 +181,16 @@ class Grid<T> {
 
     // Properties
     /**
-     * @description Initial segment value
+     * @description Initial cell value
      * on the grid
      * 
      * @type {any}
      */
-    get initialVal(): number {
-        return this._initialVal
+    get cellInitialValue(): number {
+        return this._cellInitialValue
     }
-    set initialVal(initialVal: number) {
-        this._initialVal = initialVal
+    set cellInitialValue(cellInitialValue: number) {
+        this._cellInitialValue = cellInitialValue
 
     }
     

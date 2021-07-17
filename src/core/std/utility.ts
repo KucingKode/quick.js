@@ -1,4 +1,17 @@
+/**
+ * @description PI is a constant number in mathematics.
+ * It is the ratio of the circumference of a circle to its diameter.
+ * 
+ * @type {number}
+ */
 const PI = Math.PI
+
+/**
+ * @description TWO_PI is a constant number with value PI multiplied by 2.
+ * TWO_PI is equal to 90o if converted from radian to degree.
+ * 
+ * @type {number}
+ */
 const TWO_PI = Math.PI * 2
 
 /**
@@ -45,7 +58,7 @@ function constraint(n: number, min: number, max: number): number {
  * @description Round a number with precision
  * 
  * @param {number} n Numeric expression
- * @param {?number} precision Round precision
+ * @param {number=} precision Round precision
  * @returns {number}
  */
 function round(n: number, precision?: number): number {
@@ -165,8 +178,8 @@ function average(numbers: number[]): number {
 
 /**
  * @description Return random number in a range
- * @param {?number} [min=0] Lowest random value
- * @param {?number} [max=1] Highest random value
+ * @param {number=} [min=0] Lowest random value
+ * @param {number=} [max=1] Highest random value
  * @returns {number}
  */
 function random(min: number = 0, max: number = 1) {
@@ -193,8 +206,8 @@ function randomFrom(values: any[]) {
 /**
  * @description Return random character (from 'a-Z, A-Z, 0-9')
  * 
- * @param {?string} [from=a] pick letter from
- * @param {?string} [to=Z] pick letter to
+ * @param {string=} [from=a] pick letter from
+ * @param {string=} [to=Z] pick letter to
  * @returns {string}
  */
 function randomChar(from: string = 'a', to: string = 'Z') {
@@ -226,8 +239,26 @@ function radToDeg(rad: number) {
     return rad * 180 / Math.PI
 }
 
+function loop(callback: (stop: () => void) => void) {
+    let id, stopped = false
+    function loop() {
+        callback(stop)
+        if(!stopped) {
+            id = requestAnimationFrame(loop)
+        }
+    }
+
+    function stop() {
+        stopped = true
+        cancelAnimationFrame(id)
+    }
+
+    loop()
+}
+
 export default {
-    PI, TWO_PI,
+    PI,
+    TWO_PI,
     round,
     fround,
     floor,
@@ -243,5 +274,6 @@ export default {
     randomFrom,
     randomChar,
     radToDeg,
-    degToRad
+    degToRad,
+    loop
 }

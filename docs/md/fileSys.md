@@ -1,10 +1,6 @@
 ___
 
-# **fileSys**
-
-fileSys is a part of the quick.js core library, fileSys contains some standard functions for writing, fetching and reading a file, Which is very useful for your sketch.
-
-## **Fetch & Send**
+## **Fetch & Send Files**
 
 - ### **getText()**
 
@@ -23,7 +19,7 @@ fileSys is a part of the quick.js core library, fileSys contains some standard f
 > `url` | `string` | **Required** url of a file
 > `callback` | `(err: Error, content: string) => void` | **Required** function that will be executed once this function get error or succesfully get the text from file
 >
-> **returns:**
+> **Returns:**
 >
 > `void`
 
@@ -44,7 +40,7 @@ fileSys is a part of the quick.js core library, fileSys contains some standard f
 > `url` | `string` | **Required** url of a json file
 > `callback` | `(err: Error, content: string) => void` | **Required** function that will be executed once this function get error or succesfully get the data from file
 >
-> **returns:**
+> **Returns:**
 >
 > `void`
 
@@ -65,7 +61,7 @@ fileSys is a part of the quick.js core library, fileSys contains some standard f
 > `text` | `string` | **Required** text will be sent
 > `name` | `string` | **Required** title of the text
 >
-> **returns:**
+> **Returns:**
 >
 > `void`
 

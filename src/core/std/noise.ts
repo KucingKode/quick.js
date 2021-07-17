@@ -9,10 +9,20 @@ const perlinNoise: {
     memory: {},
     gradient: {},
 
+    /**
+     * @description Generate a perlin noise
+     * 
+     * @param {number} x noise x offset
+     * @param {number} y noise y offset
+     * @returns {number} number from -1 to 1
+     */
     get(x, y) {
         return getPerlin(x, y, this.memory, this.gradient)
     },
 
+    /**
+     * @description Clear perlin noise memory
+     */
     clear() {
         this.memory = {}
         this.gradient = {}

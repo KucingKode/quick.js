@@ -1,66 +1,82 @@
 ___
 
-# **media**
+## **Media And Controller**
 
-media is a part of the quick.js core library, media contains some functions for listen to user media (mouse, keyboard, touch, camera, microphone). Which is very useful for your sketch.
-
-## **Controller**
-
-- ### **watchMouse()**
+- ### **getMouse()**
 
 > **Description:**
 >
-> Listen to the mouse events (move, press)
+> Get mouse data (move, press)
 >
 > **Syntax:**
 >
-> `media.watchMouse()`
+> `media.getMouse()`
 >
 > **Parameters:**
 >
 > Parameter | Type     | Description
 > --------- | -------- | --------------------------
 >
-> **returns:**
+> **Returns:**
 >
-> mouse state: `{ x: number, y: number, pressed: boolean }`
+> mouse state: `{ x: number, y: number, isPressed: boolean }`
 
-- ### **watchKey()**
+- ### **getKeyboard()**
 
 > **Description:**
 >
-> Listen to the keyboard events (press)
+> Get keyboard data (pressed keys)
 >
 > **Syntax:**
 >
-> `media.watchMouse()`
+> `media.getKeyboard()`
 >
 > **Parameters:**
 >
 > Parameter | Type     | Description
 > --------- | -------- | --------------------------
 >
-> **returns:**
+> **Returns:**
 >
 > mouse state:
-> `{ pressed: Set<string>, isShiftPressed: boolean, isCtrlPressed: bolean, isAltPressed: boolean }`
+> `{ pressedKeys: Set<string>, isShiftPressed: boolean, isCtrlPressed: bolean, isAltPressed: boolean }`
 
-- ### **watchTouch()**
+- ### **listenTouches()**
 
 > **Description:**
 >
-> Listen to the touch events (press)
+> Get touches data (press)
 >
 > **Syntax:**
 >
-> `media.watchMouse()`
+> `media.getTouches()`
 >
 > **Parameters:**
 >
 > Parameter | Type     | Description
 > --------- | -------- | --------------------------
 >
-> **returns:**
+> **Returns:**
 >
 > mouse state:
 > `{ touches: Touch[] }`
+
+- ### **getCamera()**
+
+> **Description:**
+>
+> Get camera data (video, size)
+>
+> **Syntax:**
+>
+> `media.getCamera()`
+>
+> **Parameters:**
+>
+> Parameter | Type     | Description
+> --------- | -------- | --------------------------
+>
+> **Returns:**
+>
+> mouse state:
+> `{ video: HTMLVideoElement, size: {width: number, height: number} }`

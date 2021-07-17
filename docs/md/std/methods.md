@@ -1,9 +1,5 @@
 ___
 
-# **std**
-
-std is a part of the quick.js core library, std contains some standard functions and constants which are used in almost every experiment.
-
 ## **Constants:**
 
 <!-- PI -->
@@ -15,7 +11,7 @@ std is a part of the quick.js core library, std contains some standard functions
 >
 > **Syntax:**
 >
-> `std.PI`
+> `PI`
 
 <!-- TWO_PI -->
 - ### **TWO_PI**
@@ -26,7 +22,7 @@ std is a part of the quick.js core library, std contains some standard functions
 >
 > **Syntax:**
 >
-> `std.TWO_PI`
+> `TWO_PI`
 
 ## **Utility:**
 
@@ -39,7 +35,7 @@ std is a part of the quick.js core library, std contains some standard functions
 >
 > **Syntax:**
 >
-> `std.map(n: number, nMin: number, nMax: number, min: number, max: number)`
+> `map(n: number, nMin: number, nMax: number, min: number, max: number)`
 >
 > **Parameters:**
 >
@@ -51,7 +47,7 @@ std is a part of the quick.js core library, std contains some standard functions
 > `min` | `number` | **Required**. remapped number range lowest value
 > `min` | `number` | **Required**. remapped number range highest value
 >
-> **returns:**
+> **Returns:**
 >
 > mapped number: `number`
 
@@ -64,7 +60,7 @@ std is a part of the quick.js core library, std contains some standard functions
 >
 > **Syntax:**
 >
-> `std.constraint(n: number, min: number, max: number)`
+> `constraint(n: number, min: number, max: number)`
 >
 > **Parameters:**
 >
@@ -74,7 +70,7 @@ std is a part of the quick.js core library, std contains some standard functions
 > `min` | `number` | **Required**. lowest number within range
 > `min` | `number` | **Required**. highest number within range
 >
-> **returns:**
+> **Returns:**
 >
 > constrainted number: `number`
 
@@ -87,7 +83,7 @@ std is a part of the quick.js core library, std contains some standard functions
 >
 > **Syntax:**
 >
-> `std.inverse(n: number)`
+> `inverse(n: number)`
 >
 > **Parameters:**
 >
@@ -95,7 +91,7 @@ std is a part of the quick.js core library, std contains some standard functions
 > --------- | -------- | --------------------------  
 > `n` | `number` | **Required**. Number you want to inverse
 >
-> **returns:**
+> **Returns:**
 >
 > inversed number: `number`
 
@@ -108,7 +104,7 @@ std is a part of the quick.js core library, std contains some standard functions
 >
 > **Syntax:**
 >
-> `std.dist(x1: number, y1: number, x2: number, y2: number)`
+> `dist(x1: number, y1: number, x2: number, y2: number)`
 >
 > **Parameters:**
 >
@@ -119,7 +115,7 @@ std is a part of the quick.js core library, std contains some standard functions
 > `x2` | `number` | **Required**. Second point x coordinate
 > `y2` | `number` | **Required**. Second point y coordinate
 >
-> **returns:**
+> **Returns:**
 >
 > distance: `number`
 
@@ -132,7 +128,7 @@ std is a part of the quick.js core library, std contains some standard functions
 >
 > **Syntax:**
 >
-> `std.fround(n: number, precision: number)`
+> `fround(n: number, precision: number)`
 >
 > **Parameters:**
 >
@@ -140,7 +136,7 @@ std is a part of the quick.js core library, std contains some standard functions
 > --------- | -------- | --------------------------  
 > `n` | `number` | **Required** A numeric expression
 >
-> **returns:**
+> **Returns:**
 >
 > float representation of number: `number`
 
@@ -153,7 +149,7 @@ std is a part of the quick.js core library, std contains some standard functions
 >
 > **Syntax:**
 >
-> `std.min(numbers: number[])`
+> `min(numbers: number[])`
 >
 > **Parameters:**
 >
@@ -161,7 +157,7 @@ std is a part of the quick.js core library, std contains some standard functions
 > --------- | -------- | --------------------------  
 > `numbers` | `number[]` | **Required**. Array of number
 >
-> **returns:**
+> **Returns:**
 >
 > lowest number from array: `number | undefined`
 
@@ -174,7 +170,7 @@ std is a part of the quick.js core library, std contains some standard functions
 >
 > **Syntax:**
 >
-> `std.min(numbers: number[])`
+> `min(numbers: number[])`
 >
 > **Parameters:**
 >
@@ -182,7 +178,7 @@ std is a part of the quick.js core library, std contains some standard functions
 > --------- | -------- | --------------------------  
 > `numbers` | `number[]` | **Required**. Array of number
 >
-> **returns:**
+> **Returns:**
 >
 > highest number from array: `number | undefined`
 
@@ -195,7 +191,7 @@ std is a part of the quick.js core library, std contains some standard functions
 >
 > **Syntax:**
 >
-> `std.min(numbers: number[])`
+> `min(numbers: number[])`
 >
 > **Parameters:**
 >
@@ -203,7 +199,7 @@ std is a part of the quick.js core library, std contains some standard functions
 > --------- | -------- | --------------------------  
 > `numbers` | `number[]` | **Required**. Array of number
 >
-> **returns:**
+> **Returns:**
 >
 > average number from array: `number | undefined`
 
@@ -218,7 +214,7 @@ std is a part of the quick.js core library, std contains some standard functions
 >
 > **Syntax:**
 >
-> `std.random(min: number, max: number)`
+> `random(min: number, max: number)`
 >
 > **Parameters:**
 >
@@ -227,7 +223,7 @@ std is a part of the quick.js core library, std contains some standard functions
 > `min` | `number` | **Default = 0**. lowest number within range
 > `max` | `number` | **Default = 1**. highest number within range
 >
-> **returns:**
+> **Returns:**
 >
 > random number: `number`
 
@@ -240,7 +236,7 @@ std is a part of the quick.js core library, std contains some standard functions
 >
 > **Syntax:**
 >
-> `std.randomChar(from: string, to: string)`
+> `randomChar(from: string, to: string)`
 >
 > **Parameters:**
 >
@@ -249,7 +245,7 @@ std is a part of the quick.js core library, std contains some standard functions
 > `from` | `string` | **Default = a**. from character
 > `to` | `string` | **Default = Z**. to character
 >
-> **returns:**
+> **Returns:**
 >
 > random char: `string`
 
@@ -262,7 +258,7 @@ std is a part of the quick.js core library, std contains some standard functions
 >
 > **Syntax:**
 >
-> `std.randomFrom(values: any[])`
+> `randomFrom(values: any[])`
 >
 > **Parameters:**
 >
@@ -270,33 +266,35 @@ std is a part of the quick.js core library, std contains some standard functions
 > --------- | -------- | --------------------------  
 > `values` | `any[]` | **Required**. array of values
 >
-> **returns:**
+> **Returns:**
 >
 > random value and its index: `{value: any, i: number}`
 
 ## **Noise:**
 
 <!-- PerlinNoise -->
-- ### **noise.perlin()**
+- ### **perlinNoise**
 
-> **Description:**
+> **Descriptions:**
 >
-> Generate a perlin noise value
+> Perlin noise generator.
 >
-> **Syntax:**
+> **Methods:**
 >
-> `std.noise.perlin(x: number, y: number)`
->
-> **Parameters:**
+> `.get(x: number, y: number): number`  
+> Generate perlin noise
 >
 > Parameter | Type     | Description
 > --------- | -------- | --------------------------  
-> `x` | `number` | **Required**. x position of perlin noise grid to be returned
-> `y` | `number` | **Required**. y position of perlin noise grid to be returned
+> `x` | `number` | **Required** x offset
+> `y` | `number` | **Required** y offset
 >
-> **returns:**
+> `.clear()`  
+> Clear perlin noise memory
 >
-> random number from -1 to 1: `number`
+> Parameter | Type     | Description
+> --------- | -------- | --------------------------
+>
 
 ## **Unit conversion:**
 
@@ -309,7 +307,7 @@ std is a part of the quick.js core library, std contains some standard functions
 >
 > **Syntax:**
 >
-> `std.degToRad(deg: number)`
+> `degToRad(deg: number)`
 >
 > **Parameters:**
 >
@@ -317,7 +315,7 @@ std is a part of the quick.js core library, std contains some standard functions
 > --------- | -------- | --------------------------  
 > `deg` | `number` | **Required** angle in degree
 >
-> **returns:**
+> **Returns:**
 >
 > angle in radian: `number`
 
@@ -330,7 +328,7 @@ std is a part of the quick.js core library, std contains some standard functions
 >
 > **Syntax:**
 >
-> `std.radToDeg(rad: number)`
+> `radToDeg(rad: number)`
 >
 > **Parameters:**
 >
@@ -338,7 +336,7 @@ std is a part of the quick.js core library, std contains some standard functions
 > --------- | -------- | --------------------------  
 > `rad` | `number` | **Required** angle in radian
 >
-> **returns:**
+> **Returns:**
 >
 > angle in degree: `number`
 
@@ -353,7 +351,7 @@ std is a part of the quick.js core library, std contains some standard functions
 >
 > **Syntax:**
 >
-> `std.round(n: number, precision: number)`
+> `round(n: number, precision: number)`
 >
 > **Parameters:**
 >
@@ -362,7 +360,7 @@ std is a part of the quick.js core library, std contains some standard functions
 > `n` | `number` | **Required** number to be round
 > `precision` | `number` | **Default = 0** the number of digits after comma
 >
-> **returns:**
+> **Returns:**
 >
 > rounded number: `number`
 
@@ -375,7 +373,7 @@ std is a part of the quick.js core library, std contains some standard functions
 >
 > **Syntax:**
 >
-> `std.floor(n: number)`
+> `floor(n: number)`
 >
 > **Parameters:**
 >
@@ -383,7 +381,7 @@ std is a part of the quick.js core library, std contains some standard functions
 > --------- | -------- | --------------------------  
 > `n` | `number` | **Required** A numeric expression
 >
-> **returns:**
+> **Returns:**
 >
 > round number: `number`
 
@@ -396,7 +394,7 @@ std is a part of the quick.js core library, std contains some standard functions
 >
 > **Syntax:**
 >
-> `std.ceil(n: number)`
+> `ceil(n: number)`
 >
 > **Parameters:**
 >
@@ -404,7 +402,7 @@ std is a part of the quick.js core library, std contains some standard functions
 > --------- | -------- | --------------------------  
 > `n` | `number` | **Required** A numeric expression
 >
-> **returns:**
+> **Returns:**
 >
 > round number: `number`
 

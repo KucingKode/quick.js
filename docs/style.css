@@ -284,7 +284,7 @@ nav .links button.active {
   display: block;
 }
 .sidebar a.head {
-  font-size: min(5vw, 1.7em);
+  font-size: min(5vw, 1.5em);
   margin-bottom: 0.5em;
   color: #AA3FFF;
 }
@@ -311,9 +311,6 @@ nav .links button.active {
   }
 }
 
-.md p::first-letter {
-  text-transform: capitalize;
-}
 .md h1 {
   font-size: min(8vw, 4em);
   color: #1f1f1f;
@@ -376,8 +373,11 @@ nav .links button.active {
 }
 .md table td, .md table th {
   border: 0.1em solid #4C29AE;
-  font-size: min(4vw, 1.3em);
+  font-size: min(3vw, 1.2em);
   padding: 0.5em 0 0.5em 0.2em;
+}
+.md table td strong, .md table th strong {
+  color: #7F43FF;
 }
 .md blockquote {
   margin: 0.5em 0 2em 0;

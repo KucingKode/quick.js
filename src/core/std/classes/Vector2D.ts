@@ -39,9 +39,9 @@ class Vector2D {
 
     /**
      * 
-     * @param {number} x Vector x coordinate
-     * @param {number} y Vector y coordinate
-     * @param {number} limit Vector magnitude limit
+     * @param {number=} x Vector x coordinate
+     * @param {number=} y Vector y coordinate
+     * @param {number=} limit Vector magnitude limit
      */
     constructor(x?: number, y?:number, limit?: number) {
         this._x = x || 0
@@ -256,6 +256,14 @@ class Vector2D {
         this._y = ny
     }
 
+    /**
+     * @description Get vector x, y coordinate
+     * @type {{x: number, y: number}}
+     */
+    pos(): {x: number, y: number} {
+        return {x: this._x, y: this._y}
+    }
+
     // properties
     /**
      * @description Vector magnitude
@@ -275,13 +283,6 @@ class Vector2D {
         this.check()
     }
 
-    /**
-     * @description Vector x, y coordinate
-     * @type {{x: number, y: number}}
-     */
-    get pos(): {x: number, y: number} {
-        return {x: this._x, y: this._y}
-    }
     /**
      * @description Vector x coordinate
      * @type {number}

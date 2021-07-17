@@ -8,15 +8,15 @@ class Queue<T> {
 
     /**
      * @description Queue size
-     * @type {?number}
+     * @type {number=}
      * @private
      */
     private _size: number = null
 
     /**
      * 
-     * @param {?any[]} data Queue initial data
-     * @param {?number} size Queue size
+     * @param {*[]=} data Queue initial data
+     * @param {number=} size Queue size
      */
     constructor(data?: T[], size?: number) {
         this._data = data
@@ -34,14 +34,36 @@ class Queue<T> {
     }
 
     /**
+     * @description Check whether queue is full
+     * @type {boolean}
+     */
+    isFull(): boolean {
+        if(this._size && this._data.length >= this._size) {
+            return true
+        }
+        return false
+    }
+
+    /**
+     * @description Check whether queue is empty
+     * @type {boolean}
+     */
+    isEmpty(): boolean {
+        if(this._data.length < 1) {
+            return true
+        }
+        return false
+    }
+
+    /**
      * @description Add a data to the top
      * of the queue
      * 
-     * @param {any} data Data to be added
+     * @param {*} data Data to be added
      * @returns {void}
      */
     enqueue(data: T) {
-        if(this.isFull) return
+        if(this.isFull()) return
         this._data.push(data)
     }
 
@@ -52,7 +74,7 @@ class Queue<T> {
      * @returns {void}
      */
     dequeue() {
-        if(this.isEmpty) return
+        if(this.isEmpty()) return
         const data = this.peek()
         this._data.splice(0, 1)
 
@@ -63,10 +85,10 @@ class Queue<T> {
      * @description Get the bottom data of
      * the queue
      * 
-     * @returns {any}
+     * @returns {*}
      */
     peek() {
-        if(this.isEmpty) return undefined
+        if(this.isEmpty()) return undefined
         return this._data[0]
     }
 
@@ -88,29 +110,6 @@ class Queue<T> {
     get data(): T[] {
         return Array.from(this._data)
     }
-
-    /**
-     * @description Check whether queue is full
-     * @type {boolean}
-     */
-    get isFull(): boolean {
-        if(this._size && this._data.length >= this._size) {
-            return true
-        }
-        return false
-    }
-
-    /**
-     * @description Check whether queue is empty
-     * @type {boolean}
-     */
-    get isEmpty(): boolean {
-        if(this._data.length < 1) {
-            return true
-        }
-        return false
-    }
-
 }
 
 export default Queue

@@ -1,11 +1,11 @@
-import watchMouse from './mouse'
-import watchKey from './key'
-import watchTouch from './touch'
-import watchVideo from './video'
+import getMouse from './mouse'
+import getKeyboard from './key'
+import getTouch from './touch'
+import getCamera from './camera'
 
 export default {
-    watchMouse,
-    watchKey,
-    watchTouch,
-    watchVideo
+    getMouse,
+    getKeyboard,
+    getTouch,
+    getCamera
 }

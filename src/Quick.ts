@@ -38,21 +38,14 @@ class Quick {
      * @type {string}
      * @private
      */
-    private _version: string = '0.1.0'
+    private _version: string = '2.0.0-beta'
 
     /**
      * @description Quick.js Core Version
      * @type {string}
      * @private
      */
-    private _core_version: string = '1a'
-
-    // /**
-    //  * @description Quick.js Theme
-    //  * @type {string}
-    //  * @private
-    //  */
-    // private _theme: string = 'plain'
+    private _core_version: string = '1b'
 
     /**
      * @description store all intervals that have been set
@@ -98,13 +91,17 @@ class Quick {
         }
     }
 
+    /**
+     * @description Link quick.js library
+     * @param {any} lib Quick.js library
+     */
     link(lib: any) {
         this._ref.pendingLibLinks.push(lib)
     }
 
     // Main Operations
     /**
-     * @description run Quick.js
+     * @description Run Quick.js
      * 
      * @param {?{theme?: string}} [options={}] options
      */
@@ -146,17 +143,23 @@ class Quick {
         if(sketches.length > 0) {
             let sketch = sketches[0]
 
-            if(window.localStorage.getItem('QQ-default')) {
-                sketch = this._sketches[window.localStorage.getItem('QQ-default')]
+            if(window.sessionStorage.getItem('QQ-default')) {
+                sketch = this._sketches[window.sessionStorage.getItem('QQ-default')]
+            } else {
+                window.sessionStorage.removeItem('QQ-default')
             }
 
             current = sketch
 
             this._ref.p1 = performance.now()
-            current.start()
+            current.start(this.Core)
         }
     }
     
+    /**
+     * @description Switch to another quick.js project
+     * @param {string} title Title of the sketch
+     */
     switch(title: string) {
         if(this._sketches[title]) {
             const temp = repeat
@@ -172,17 +175,24 @@ class Quick {
 
             current = this._sketches[title]
 
-            current.start()
+            current.start(this.Core)
             return
         }
         console.log(`%cSketch with title "${title}" not found!`, colors.err)
         throw new Error('Sketch not found!')
     }
 
+    /**
+     * @description Reset current sketch
+     */
     restart() {
         this.switch(current.title)
     }
 
+    /**
+     * @description Add library to Quick.js
+     * @param {{name: string, version: string}} lib Library to be added
+     */
     addLib(lib: {name: string, version: string}) {
         libraries.libs.push(lib)
     }
@@ -213,12 +223,12 @@ class Quick {
     /**
      * @description Add new sketch to quick js
      * @param {{title: string,note?: string}} options Sketch options
-     * @param {() => void} sketch Sketch
+     * @param {(quick: typeof Core) => void} sketch Sketch
      */
     createSketch(options: {
         title: string,
         note?: string
-    }, sketch: () => void) {
+    }, sketch: (quick: typeof Core) => void) {
         this._sketches[options.title] = (new Sketch(options, sketch))
     }
 
@@ -252,8 +262,20 @@ class Quick {
         return [window.screen.width, window.screen.height]
     }
 
+    /**
+     * @description Quick.js sketches
+     * @type {any}
+     */
     get sketches(): any {
         return this._sketches
+    }
+
+    /**
+     * @description Quick.js sketch
+     * @param {(lib: typeof Core) => void} sketch new sketch
+     */
+    set sketch(sketch: (lib: typeof Core) => void) {
+        this._sketches = { sketch: new Sketch({title: 'sketch'}, sketch) }
     }
 }
 
@@ -324,7 +346,7 @@ window.Quick = new class {
     default(title: string) {
         const sketches = Q.sketches
         if(sketches[title]) {
-            window.localStorage.setItem('QQ-default', title)
+            window.sessionStorage.setItem('QQ-default', title)
             Q.terminate(() => {})
             Q.run()
         } else {
@@ -334,7 +356,7 @@ window.Quick = new class {
         return
     }
     get unsetDefault() {
-        window.localStorage.removeItem('QQ-default')
+        window.sessionStorage.removeItem('QQ-default')
         Q.terminate(() => {})
         Q.run()
         return

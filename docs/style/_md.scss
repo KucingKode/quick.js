@@ -2,9 +2,6 @@
 
 @mixin md() {
     .md {
-        p::first-letter {
-            text-transform: capitalize;
-        }
     
         h1 {
             font-size: min(8vw, 4em);
@@ -76,11 +73,16 @@
             border-collapse: collapse;
             margin: 0.5em 0 2em 0;
             width: 100%;
-    
+
+            
             td, th {
                 border: 0.1em solid map-get(var.$colors, dark);
-                font-size: min(4vw, 1.3em);
+                font-size: min(3vw, 1.2em);
                 padding: 0.5em 0 0.5em 0.2em;
+                
+                strong {
+                    color: map-get(var.$colors, theme);
+                }
             }
         }
     

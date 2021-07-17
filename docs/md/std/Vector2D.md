@@ -8,7 +8,7 @@ Vector2D class will create a vector in 2d space.
 >
 > **Syntax:**  
 > Create new 2D vector :  
-> `new std.Line(x: number, y: number, limit?: number)`
+> `new Line(x: number, y: number, limit?: number)`
 >
 > Parameter | Type     | Description
 > --------- | -------- | --------------------------  
@@ -17,7 +17,7 @@ Vector2D class will create a vector in 2d space.
 > `limit` | `number` | **Optional** new vector magnitude limit
 >
 > Create new vector by adding two other 2d vector :  
-> `std.Vector2D.add(vec1: Vector2D, vec2: Vector2D)`  
+> `Vector2D.add(vec1: Vector2D, vec2: Vector2D)`  
 >
 > Parameter | Type     | Description
 > --------- | -------- | --------------------------  
@@ -25,7 +25,7 @@ Vector2D class will create a vector in 2d space.
 > `vec2` | `Vector2D` | **Required** second vector
 >
 > Create new vector by substracting two other 2d vector :  
-> `std.Vector2D.sub(vec1: Vector2D, vec2: Vector2D)`  
+> `Vector2D.sub(vec1: Vector2D, vec2: Vector2D)`  
 >
 > Parameter | Type     | Description
 > --------- | -------- | --------------------------  
@@ -33,7 +33,7 @@ Vector2D class will create a vector in 2d space.
 > `vec2` | `Vector2D` | **Required** second vector
 >
 > Clone a Vector :  
-> `std.Vector2D.clone(vec: Vector2D)`  
+> `Vector2D.clone(vec: Vector2D)`  
 >
 > Parameter | Type     | Description
 > --------- | -------- | --------------------------  
@@ -45,7 +45,6 @@ Vector2D class will create a vector in 2d space.
 > --------- | -------- | --------------------------  
 > `x`       | `number` | x component of the vector  
 > `y`       | `number` | y component of the vector  
-> `pos`     | `number` | x and y component of vector  
 > `mag`     | `number` | magnitude of the vector  
 > `limit`   | `number` | magnitude limit of the vector  
 > `angle`   | `number` | angle of the vector  
@@ -54,6 +53,12 @@ Vector2D class will create a vector in 2d space.
 >
 > **Methods:**
 >
+> `.pos(): {x: number, y: number}`  
+> get vector x and y component
+>
+> Parameter | Type     | Description
+> --------- | -------- | --------------------------  
+>
 > `.rotate(angle: number)`  
 > rotate vector
 >
@@ -61,7 +66,7 @@ Vector2D class will create a vector in 2d space.
 > --------- | -------- | --------------------------  
 > `angle` | `number` | **Required** angle in radian
 >
-> `.add(x: number, y: number)`  
+> `.add(x: number, y: number): this`  
 > add x and y component of vector
 >
 > Parameter | Type     | Description
@@ -69,7 +74,7 @@ Vector2D class will create a vector in 2d space.
 > `x` | `number` | **Required** addition to x
 > `y` | `number` | **Required** addition to y
 >
-> `.sub(x: number, y: number)`  
+> `.sub(x: number, y: number): this`  
 > subtract x and y component of vector
 >
 > Parameter | Type     | Description
@@ -77,35 +82,35 @@ Vector2D class will create a vector in 2d space.
 > `x` | `number` | **Required** subtraction to x
 > `y` | `number` | **Required** subtraction to y
 >
-> `.mult(n: number)`  
+> `.mult(n: number): this`  
 > multiply x and y component of vector
 >
 > Parameter | Type     | Description
 > --------- | -------- | --------------------------  
 > `n` | `number` | **Required** multiplier for x and y component
 >
-> `.div(n: number)`  
+> `.div(n: number): this`  
 > divide x and y component of vector
 >
 > Parameter | Type     | Description
 > --------- | -------- | --------------------------  
 > `n` | `number` | **Required** divider for x and y component
 >
-> `.$add(vec: Vector2D)`  
+> `.$add(vec: Vector2D): this`  
 > add vector with another vector
 >
 > Parameter | Type     | Description
 > --------- | -------- | --------------------------  
 > `vec` | `Vector2D` | **Required** addition vector
 >
-> `.$sub(vec: Vector2D)`  
+> `.$sub(vec: Vector2D): this`  
 > subtract vector with another vector
 >
 > Parameter | Type     | Description
 > --------- | -------- | --------------------------  
 > `vec` | `Vector2D` | **Required** subtraction vector
 >
-> `.$set(x: number, y: number)`  
+> `.$set(x: number, y: number): this`  
 > reset vector x and y component
 >
 > Parameter | Type     | Description
@@ -113,7 +118,7 @@ Vector2D class will create a vector in 2d space.
 > `x` | `number` | **Required** new x component value
 > `y` | `number` | **Required** new y component value
 >
-> `Vector2D.dot(vec1: Vector2D, vec2: Vector2D)`  
+> `Vector2D.dot(vec1: Vector2D, vec2: Vector2D): number`  
 > calculate dot product of two vector
 >
 > Parameter | Type     | Description
@@ -121,7 +126,7 @@ Vector2D class will create a vector in 2d space.
 > `vec1` | `Vector2D` | **Required** first 2d vector
 > `vec2` | `Vector2D` | **Required** second 2d vector
 >
-> `Vector2D.cross(vec1: Vector2D, vec2: Vector2D)`  
+> `Vector2D.cross(vec1: Vector2D, vec2: Vector2D): number`  
 > calculate cross product of two vector
 >
 > Parameter | Type     | Description

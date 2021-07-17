@@ -1,15 +1,10 @@
-import $Core from '../core'
+import std from '../std/std'
 import Canvas2D from "./Canvas2D";
 
 type canvasStyle = string | CanvasGradient | CanvasPattern
 type angleUnit = "RADIAN" | "DEGREE"
 type coordinatesSystem = "CARTESIAN" | "NORMAL" | "PHYSICS"
-interface canvasOptions {
-    style?: canvasStyle
-    alpha?: number
-    compositeOperation?: string
-    disableImageSmoothing?: boolean
-}
+
 interface strokeOptions {
     style?: canvasStyle
     width?: number
@@ -41,12 +36,6 @@ interface fontOptions {
  * @typedef {("RADIAN" | "DEGREE")} angleUnit
  * @typedef {("CARTESIAN" | "NORMAL" | "PHYSICS")} coordinatesSystem
  * @typedef {(string | CanvasGradient | CanvasPattern)} canvasStyle
- * @typedef {{
- *    style?: string | CanvasGradient | CanvasPattern,
- *    alpha?: number,
- *    compositeOperation?: string
- *    disableImageSmoothing?: boolean
- * }} artisanOption
  * 
  * @typedef {{
  *     style?: canvasStyle
@@ -81,24 +70,16 @@ interface fontOptions {
 
 /**
  * @class
- * @classdesc Artisan will help you to draw
+ * @classdesc Kit2D will help you to draw
  * everyting in your canvas!
  */
-class Artisan {
+class Kit2D {
     /**
-     * @description Quick.js core
-     * @private
-     * @readonly
-     */
-    private readonly __core = $Core.Core
-
-    /**
-     * @description Artisan's task to be done
+     * @description Kit2D's task to be done
      * @type {(() => void)[][]}
      * @private
      */
     private _tasks: (() => void)[][] = []
-    private _styles: Map<string, () => void> = new Map()
 
     /**
      * @description reference data
@@ -124,7 +105,7 @@ class Artisan {
     }
 
     /**
-     * @description Artisan configuration
+     * @description Kit2D configuration
      * @private
      */
     private _config: {
@@ -140,17 +121,17 @@ class Artisan {
     }
 
     /**
-     * @description Artisan job for each frame
+     * @description Kit2D drawing steps for each frame
      * @private
      */
-    private _job: () => void = null
+    private _steps: () => void = null
 
     /**
-     * @description Job ID
+     * @description steps ID
      * @type {number}
      * @private
      */
-    private _jobId: number = null
+    private _stepsId: number = null
 
     /**
      * @description Canvas2D to draw
@@ -168,16 +149,10 @@ class Artisan {
 
     /**
      * 
-     * @param {Canvas2D} canvas Canvas2D for artisan to draw
-     * @param {artisanOption} options Artisan options
+     * @param {Canvas2D} canvas Canvas2D for Kit2D to draw
      */
-    constructor(canvas: Canvas2D, options: canvasOptions = {}) {
-        if(!canvas?.element) {
-            throw new Error(`Canvas2D Can't be null`)
-        }
+    constructor(canvas: Canvas2D) {
         this._canvas = canvas
-
-    
     }
 
     /**
@@ -189,7 +164,7 @@ class Artisan {
      */
     private convertAngle(angle: number) {
         if(this._config.angleUnit == 'DEGREE') {
-            angle = this.__core.std.degToRad(angle)
+            angle = std.degToRad(angle)
         }
 
         return angle
@@ -201,10 +176,13 @@ class Artisan {
      */
     private manipCoordinate() {
         if(this._config.coordinatesSystem == 'CARTESIAN') {
-            this._canvas.c.translate(this._canvas.width / 2, this._canvas.height / 2)
+            this._canvas.ctx.scale(1, -1)
+            this._canvas.ctx.translate(0, -this._canvas.height)
+            this._canvas.ctx.translate(this._canvas.width / 2, this._canvas.height / 2)
         }
         if(this._config.coordinatesSystem == 'PHYSICS') {
-            this._canvas.c.translate(0, this._canvas.height)
+            this._canvas.ctx.scale(1, -1)
+            this._canvas.ctx.translate(0, -this._canvas.height)
         }
     }
 
@@ -231,19 +209,7 @@ class Artisan {
      */
     private reset() {
         this.resetTransform()
-        
-        this.beginPath()
-
-        if(this._config.canvasFillStyle == 'clear') {
-            this._canvas.c.clearRect(0, 0, this._canvas.width, this._canvas.height)
-        } else {
-            this._canvas.c.fillStyle = this.checkColor(this._config.canvasFillStyle || 'rgba(0, 0, 0, 0)')
-            this._canvas.c.fillRect(0, 0, this._canvas.width, this._canvas.height)
-        }
-
-        this.closePath()
-
-        this.manipCoordinate()
+        this.execTasks()
     }
 
     /**
@@ -275,9 +241,9 @@ class Artisan {
 
         this.execTasks()
         this._tasks.push([
-            () => this._canvas.c.beginPath(),
+            () => this._canvas.ctx.beginPath(),
             task,
-            () => this._canvas.c.closePath(),
+            () => this._canvas.ctx.closePath(),
         ])
         this._ref.firstLinePoint = true
         this._ref.isClosed = false
@@ -324,38 +290,31 @@ class Artisan {
     private beginLine(x: number, y: number): () => void {
         if(this._ref.firstLinePoint) {
             this._ref.firstLinePoint = false
-            return () => this._canvas.c.moveTo(x, y)
+            return () => this._canvas.ctx.moveTo(x, y)
         }
-        return () => this._canvas.c.lineTo(x, y)
+        return () => this._canvas.ctx.lineTo(x, y)
     }
 
     /**
-     * @description Set a job to do for each
-     * frame for artisan
+     * @description Set drawing Kit2D steps for each
+     * frame
      * 
-     * @param job Artisan's job for each frame
+     * @param {() => void} steps Drawing steps
      */
-    do(job: () => void): void {
-        if(this._job) {
-            cancelAnimationFrame(this._jobId)
+    draw(steps: () => void): void {
+        if(this._steps) {
+            cancelAnimationFrame(this._stepsId)
         }
-        this._job = () => {
+        this._steps = () => {
             setTimeout(() => {
                 this.reset()
-                job()
+                steps()
                 this.execTasks()
-                const id = requestAnimationFrame(this._job)
-                this._jobId = id
+                const id = requestAnimationFrame(this._steps)
+                this._stepsId = id
             }, this._config.fps ? 1000 / this._config.fps : 0)
         }
-        this._job()
-    }
-
-    /**
-     * @description Greet!!
-     */
-    greet() {
-        console.log('Hello :)')
+        this._steps()
     }
 
     /**
@@ -368,7 +327,7 @@ class Artisan {
 
     /**
      * @description Restore some style to default value
-     * @param {("fill" | "stroke" | "shadow" | "font" | "all")[]} keys style key that will restored
+     * @param {("fill" | "stroke" | "shadow" | "font" | "all")[]} keys styles key to be restored
      * to default
      */
     restoreDefault(...keys: string[]) {
@@ -377,34 +336,34 @@ class Artisan {
         
         if(all || skeys.has('fill')) {
             this.addStyle(() => {}, () => {
-                this._canvas.c.fillStyle = 'black'
+                this._canvas.ctx.fillStyle = 'black'
             })
         }
         
         if(all || skeys.has('stroke')) {
             this.addStyle(() => {
-                this._canvas.c.strokeStyle = 'black'
-                this._canvas.c.lineWidth = 0
-                this._canvas.c.lineCap = 'butt'
-                this._canvas.c.lineJoin = 'miter'
-                this._canvas.c.miterLimit = 10
-                this._canvas.c.lineDashOffset = 0
-                this._canvas.c.setLineDash([])
+                this._canvas.ctx.strokeStyle = 'black'
+                this._canvas.ctx.lineWidth = 0
+                this._canvas.ctx.lineCap = 'butt'
+                this._canvas.ctx.lineJoin = 'miter'
+                this._canvas.ctx.miterLimit = 10
+                this._canvas.ctx.lineDashOffset = 0
+                this._canvas.ctx.setLineDash([])
             }, () => {})
         }
 
         if(all || skeys.has('font')) {
             this.addStyle(() => {
-                this._canvas.c.font = '10px serif'
+                this._canvas.ctx.font = '10px serif'
             }, () => {})
         }
 
         if(all || skeys.has('shadow')) {
             this.addStyle(() => {
-                this._canvas.c.shadowColor = 'rgba(0, 0, 0, 0)'
-                this._canvas.c.shadowBlur = 0
-                this._canvas.c.shadowOffsetX = 0
-                this._canvas.c.shadowOffsetY = 0
+                this._canvas.ctx.shadowColor = 'rgba(0, 0, 0, 0)'
+                this._canvas.ctx.shadowBlur = 0
+                this._canvas.ctx.shadowOffsetX = 0
+                this._canvas.ctx.shadowOffsetY = 0
             }, () => {})
         }
     }
@@ -418,12 +377,12 @@ class Artisan {
     rotate(angle: number) {
         angle = this.convertAngle(angle)
         this.addTransform(() => {
-            this._canvas.c.rotate(angle)
+            this._canvas.ctx.rotate(angle)
         })
     }
 
     /**
-     * @description Adds a scaling transformation to
+     * @description Adds scaling transformation to
      * the canvas units horizontally and/or vertically
      * 
      * @param {number} x Scaling factor in the horizontal direction
@@ -432,12 +391,12 @@ class Artisan {
      */
     scale(x: number, y: number) {
         this.addTransform(() => {
-            this._canvas.c.scale(x, y)
+            this._canvas.ctx.scale(x, y)
         })
     }
 
     /**
-     * @description Adds a translation transformation
+     * @description Adds translation transformation
      * to the current matrix
      * 
      * @param {number} x Distance to move in the horizontal direction
@@ -445,29 +404,29 @@ class Artisan {
      */
     translate(x: number, y: number) {
         this.addTransform(() => {
-            this._canvas.c.translate(x, y)
+            this._canvas.ctx.translate(x, y)
         })
     }
 
     /**
-     * @description Set transform
+     * @description Replace or add the transformation matrix
      * 
-     * @param {DOMMatrix} matrix Transformation matrix
+     * @param {DOMMatrix} matrix New transformation matrix
      * @param {boolean} override If true it will
-     * override all transformation
+     * replace transformation matrix with the new transformation matrix
      * 
      * @returns {void}
      */
     transform(matrix: DOMMatrix, override = false) {
         if(override) {
             this.addTransform(() => {
-                this._canvas.c.setTransform(matrix)
+                this._canvas.ctx.setTransform(matrix)
                 this.manipCoordinate()
             })
             return
         }
         this.addTransform(() => {
-            this._canvas.c.transform(matrix.a, matrix.b, matrix.c, matrix.d, matrix.e, matrix.f)
+            this._canvas.ctx.transform(matrix.a, matrix.b, matrix.c, matrix.d, matrix.e, matrix.f)
         })
     }
 
@@ -476,30 +435,67 @@ class Artisan {
      * @returns {DOMMatrix}
      */
     getTransform() {
-        return this._canvas.c.getTransform()
+        this.execTasks()
+        // remove coordinate system effect
+        if(this._config.coordinatesSystem == 'CARTESIAN') {
+            this._canvas.ctx.scale(1, -1)
+            this._canvas.ctx.translate(0, -this._canvas.height)
+            this._canvas.ctx.translate(-this._canvas.width / 2, this._canvas.height / 2)
+        }
+        if(this._config.coordinatesSystem == 'PHYSICS') {
+            this._canvas.ctx.scale(1, -1)
+            this._canvas.ctx.translate(0, -this._canvas.height)
+        }
+        const tr = this._canvas.ctx.getTransform()
+        this.manipCoordinate()
+        return tr
     }
 
     /**
-     * @description Reset transform matrix
+     * @description Reset canvas transformation matrix
      */
     resetTransform() {
-        this._canvas.c.setTransform(1, 0, 0, 1, 0, 0)
+        this.addTransform(() => {
+            this._canvas.ctx.setTransform(1, 0, 0, 1, 0, 0)
+            this.manipCoordinate()
+        })
     }
 
-    // TODO document
+    /**
+     * @description Add horizontal flip transformation
+     * to canvas transformation matrix
+     */
     flipH() {
+        if(this._config.coordinatesSystem == 'CARTESIAN') {
+            this.translate(-this._canvas.width, 0)
+            return
+        }
+        
         this.scale(-1, 1)
         this.translate(-this._canvas.width, 0)
     }
+
+    /**
+     * @description Add vertical flip transformation
+     * to canvas transformation matrix
+     */
     flipV() {
+        if(this._config.coordinatesSystem == 'CARTESIAN') {
+            this.translate(0, -this._canvas.height)
+            return
+        }
+            
         this.scale(1, -1)
         this.translate(0, -this._canvas.height)
     }
 
+    /**
+     * @description Load and store canvas pixels data to 
+     * Kit2D pixels variable
+     */
     loadPixels() {
-        this.addTransform(() => {
-            this._pixels = this._canvas.c.getImageData(0, 0, this._canvas.width, this._canvas.height).data
-        })
+        this.execTasks()
+        this._pixels = this._canvas.ctx.getImageData(0, 0, this._canvas.width, this._canvas.height).data
     }
 
     /**
@@ -507,16 +503,17 @@ class Artisan {
      * @returns {void}
      */
     beginPath() {
+        this.execTasks()
         this._ref.isClosed = false
         this._ref.isOnPath = true
         this._ref.firstLinePoint = true
         this._tasks.push([
-            () => this._canvas.c.beginPath()
+            () => this._canvas.ctx.beginPath()
         ])
         this._ref.firstObjectIndex = 1
     }
     /**
-     * @description End a path
+     * @description Close a path
      * @returns {void}
      */
     closePath() {
@@ -524,7 +521,7 @@ class Artisan {
         this._ref.isOnPath = false
         this._ref.firstLinePoint = true
         this._tasks[this._tasks.length - 1].push(
-            () => this._canvas.c.closePath()
+            () => this._canvas.ctx.closePath()
         )
         this.execTasks()
     }
@@ -535,45 +532,85 @@ class Artisan {
      */
     save() {
         this.addObject(() => {
-            this._canvas.c.save()
+            this._canvas.ctx.save()
         })
     }
 
     /**
-     * @description Restore canvas state
+     * @description Restore canvas state to saved state
      * @returns {void}
      */
     restore() {
         this.addObject(() => {
-            this._canvas.c.restore()
+            this._canvas.ctx.restore()
         })
+    }
+
+    /**
+     * @description fill entire canvas
+     * @param {canvasStyle} style Canvas fill style
+     */
+    fillCanvas(style: canvasStyle) {
+        this.beginPath()
+        const cs = this._config.coordinatesSystem
+        const tr = this.getTransform()
+
+        this._config.coordinatesSystem = 'NORMAL'
+        this.resetTransform()
+
+        this.rect(0, 0, this._canvas.width, this._canvas.height)
+        this.fill(style)
+        this.closePath()
+
+        this._config.coordinatesSystem = cs
+        this.transform(tr, true)
+    }
+
+    /**
+     * @description Clear canvas
+     */
+    clearCanvas() {
+        this.beginPath()
+        const cs = this._config.coordinatesSystem
+        const tr = this.getTransform()
+
+        this._config.coordinatesSystem = 'NORMAL'
+        this.resetTransform()
+
+        this.addObject(() => {
+            this._canvas.ctx.clearRect(0, 0, this._canvas.width, this._canvas.height)
+        })
+        this.closePath()
+
+        this._config.coordinatesSystem = cs
+        this.transform(tr, true)
     }
 
     /**
      * @description Draw a rectange on canvas
      * 
-     * @param {number} x x top left coordinate
-     * @param {number} y y top left coordinate
+     * @param {number} x x coordinate
+     * @param {number} y y coordinate
      * @param {number} width Width of rectangle
      * @param {number} height Height of rectangle
      */
     rect(x, y, width, height) {
         this.addObject(() => {
-            this._canvas.c.rect(x, y, width, height)
+            this._canvas.ctx.rect(x, y, width, height)
         })
     }
     
     /**
      * @description Draw an ellipse on canvas
      * 
-     * @param {number} x x center point location of the ellipse
-     * @param {number} y y center point location of the ellipse
+     * @param {number} x x center point coordinate of the ellipse
+     * @param {number} y y center point coordinate of the ellipse
      * @param {number} xrad x radius of the ellipse
      * @param {number} yrad y radius of the ellipse
      * @param {number} rotation Rotate amount of the ellipse
      * @param {number} startAng Starting angle
      * @param {number} endAng Ending angle
-     * @param {?boolean} antiClockwise If true it will draw the ellipse
+     * @param {boolean=} antiClockwise If true it will draw the ellipse
      * with anti clocwise direction
      */
     ellipse(
@@ -589,19 +626,19 @@ class Artisan {
         endAng = this.convertAngle(endAng)
 
         this.addObject(() => {
-            this._canvas.c.ellipse(x, y, xRad, yRad, rotation, startAng, endAng, antiClockwise)
+            this._canvas.ctx.ellipse(x, y, xRad, yRad, rotation, startAng, endAng, antiClockwise)
         })
     }
 
     /**
      * @description Draw an arc on canvas
      * 
-     * @param {number} x x center point location of the arc
-     * @param {number} y y center point location of the arc
+     * @param {number} x x center point coordinate of the arc
+     * @param {number} y y center point coordinate of the arc
      * @param {number} r Radius of the arc
      * @param {number} startAng Starting angle
      * @param {number} endAng End angle
-     * @param {?boolean} antiClockwise If true it will draw the arc
+     * @param {boolean=} antiClockwise If true it will draw the arc
      * with anti clocwise direction
      */
     arc(
@@ -616,20 +653,20 @@ class Artisan {
         endAng = this.convertAngle(endAng)
 
         this.addObject(() => {
-            this._canvas.c.arc(x, y, r, startAng, endAng, antiClockwise)
+            this._canvas.ctx.arc(x, y, r, startAng, endAng, antiClockwise)
         })
     }
 
     /**
      * @description Draw a perfect circle on canvas
      * 
-     * @param {number} x x center point location of the circle
-     * @param {number} y y center point location of the circle
+     * @param {number} x x center point coordinate of the circle
+     * @param {number} y y center point coordinate of the circle
      * @param {number} r Radius of the circle
      */
     circle(x: number, y: number, r: number) {
         this.addObject(() => {
-            this._canvas.c.arc(x, y, r, 0, Math.PI * 2, false)
+            this._canvas.ctx.arc(x, y, r, 0, Math.PI * 2, false)
         })
     }
 
@@ -642,53 +679,89 @@ class Artisan {
      * @param {number} y2 Line end point y coordinate
      */
     line(x1: number, y1: number, x2: number, y2: number) {
-        const begin = this.beginLine(x1, y1)
         this.addObject(() => {
-            begin()
-            this._canvas.c.lineTo(x2, y2)
+            this.beginLine(x1, y1)()
+            this._canvas.ctx.lineTo(x2, y2)
         })
     }
 
-    // TODO add documentation
+    /**
+     * @description draw a shape by connecting some points
+     * @param {{x: number, y: number}[]} points points to be connected
+     */
+    shape(points: {x: number, y: number}[]) {
+        if(points.length < 1) return
+        if(points.length < 2) {
+            const point = points[0]
+
+            this.circle(point.x, point.y, 1)
+            return
+        }
+
+        this.addObject(() => {
+            let first = true
+            for (let i = 1; i < points.length; i++) {
+                const prevPoint = points[i - 1];
+                const point = points[i];
+                
+                if(first) {
+                    this._canvas.ctx.moveTo(prevPoint.x, prevPoint.y)
+                    first = false
+                } else {
+                    this._canvas.ctx.lineTo(prevPoint.x, prevPoint.y)
+                }
+                this._canvas.ctx.lineTo(point.x, point.y)
+            }
+            this._canvas.ctx.lineTo(points[0].x, points[0].y)
+            this._canvas.ctx.lineTo(points[points.length-1].x, points[points.length-1].y)
+        })
+    }
+
+    /**
+     * 
+     * @param {CanvasImageSource} src image source
+     * @param {number} x x top left coordinate
+     * @param {number} y y top left coordinate 
+     */
     image(src: CanvasImageSource, x: number, y: number) {
         this.addObject(() => {
-            this._canvas.c.drawImage(src, x, y)
+            this._canvas.ctx.drawImage(src, x, y)
         })
     }
 
     /**
      * @description Draw a bezier curve on canvas
      * 
-     * @param {number} xStart Bezier curve start point x coordinate
-     * @param {number} yStart Bezier curve start point y coordinate
-     * @param {number} xCp1 Bezier curve first control point x coordinate
-     * @param {number} yCp1 Bezier curve first control point x coordinate
-     * @param {number} xCp2 Bezier curve second control point x coordinate
-     * @param {number} yCp2 Bezier curve second control point x coordinate
-     * @param {number} xEnd Bezier curve end point x coordinate
-     * @param {number} yEnd Bezier curve end point x coordinate
+     * @param {number} startX Bezier curve start point x coordinate
+     * @param {number} startY Bezier curve start point y coordinate
+     * @param {number} cp1X Bezier curve first control point x coordinate
+     * @param {number} cp1Y Bezier curve first control point x coordinate
+     * @param {number} cp2X Bezier curve second control point x coordinate
+     * @param {number} cp2Y Bezier curve second control point x coordinate
+     * @param {number} endX Bezier curve end point x coordinate
+     * @param {number} endY Bezier curve end point x coordinate
      */
-    bezier(xStart, yStart, xCp1, yCp1, xCp2, yCp2, xEnd, yEnd) {
+    bezier(startX: number, startY: number, cp1X: number, cp1Y: number, cp2X: number, cp2Y: number, endX: number, endY: number) {
         this.addObject(() => {
-            this.beginLine(xStart, yStart)
-            this._canvas.c.bezierCurveTo(xCp1, yCp1, xCp2, yCp2, xEnd, yEnd)
+            this.beginLine(startX, startY)()
+            this._canvas.ctx.bezierCurveTo(cp1X, cp1Y, cp2X, cp2Y, endX, endY)
         })
     }
 
     /**
      * @description Draw quadratic curve on canvas
      * 
-     * @param {number} xStart Quadratic curve start point x coordinate
-     * @param {number} yStart Quadratic curve start point y coordinate
-     * @param {number} xCp Quadratic curve control point x coordinate
-     * @param {number} yCp Quadratic curve control point y coordinate
-     * @param {number} xEnd Quadratic curve end point x coordinate
-     * @param {number} yEnd Quadratic curve end point x coordinate
+     * @param {number} startX Quadratic curve start point x coordinate
+     * @param {number} startY Quadratic curve start point y coordinate
+     * @param {number} cpX Quadratic curve control point x coordinate
+     * @param {number} cpY Quadratic curve control point y coordinate
+     * @param {number} endX Quadratic curve end point x coordinate
+     * @param {number} endY Quadratic curve end point x coordinate
      */
-    curve(xStart, yStart, xCp, yCp, xEnd, yEnd) {
+    curve(startX, startY, cpX, cpY, endX, endY) {
         this.addObject(() => {
-            this.beginLine(xStart, yStart)
-            this._canvas.c.quadraticCurveTo(xCp, yCp, xEnd, yEnd)
+            this.beginLine(startX, startY)()
+            this._canvas.ctx.quadraticCurveTo(cpX, cpY, endX, endY)
         })
     }
 
@@ -701,11 +774,11 @@ class Artisan {
      * @param {canvasStyle} style text fill style
      * @param {{align?: CanvasTextAlign, baseline?: CanvasTextBaseline, maxWidth?: number}} options optional params
      */
-    text(x: number, y: number, text: string, style: canvasStyle, options: {align?: CanvasTextAlign, baseline?: CanvasTextBaseline, maxWidth?: number} = {}) {
+    text(x: number, y: number, style: canvasStyle, text: string, options: {align?: CanvasTextAlign, baseline?: CanvasTextBaseline, maxWidth?: number} = {}) {
         this.addObject(() => {
-            this._canvas.c.textAlign = options.align || 'left'
-            this._canvas.c.textBaseline = options.baseline || 'middle'
-            this._canvas.c.fillText(text, x, y, options.maxWidth)
+            this._canvas.ctx.textAlign = options.align || 'left'
+            this._canvas.ctx.textBaseline = options.baseline || 'middle'
+            this._canvas.ctx.fillText(text, x, y, options.maxWidth)
         })
         this.fill(style)
     }
@@ -713,13 +786,13 @@ class Artisan {
     /**
      * @description Set fill style
      * @param {canvasStyle} style fill style
-     * @param {?CanvasFillRule} rule fill rule
+     * @param {CanvasFillRule=} rule fill rule
      */
-    fill(style?: canvasStyle, rule?: CanvasFillRule) {
+    fill(style: canvasStyle, rule?: CanvasFillRule) {
         this.addStyle(() => {
-            this._canvas.c.fillStyle = this.checkColor(style)
+            this._canvas.ctx.fillStyle = this.checkColor(style)
         }, () => {
-            this._canvas.c.fill(rule)
+            this._canvas.ctx.fill(rule)
         })
     }
 
@@ -729,15 +802,15 @@ class Artisan {
      */
     stroke(options: strokeOptions = {}) {
         this.addStyle(() => {
-            this._canvas.c.strokeStyle = this.checkColor(options.style)
-            this._canvas.c.lineWidth = options.width
-            this._canvas.c.lineCap = options.cap
-            this._canvas.c.lineJoin = options.join
-            this._canvas.c.lineDashOffset = options.dashOffset
-            this._canvas.c.setLineDash(options.dash || [])
-            this._canvas.c.miterLimit = options.miterLimit
+            this._canvas.ctx.strokeStyle = this.checkColor(options.style)
+            this._canvas.ctx.lineWidth = options.width
+            this._canvas.ctx.lineCap = options.cap
+            this._canvas.ctx.lineJoin = options.join
+            this._canvas.ctx.lineDashOffset = options.dashOffset
+            this._canvas.ctx.setLineDash(options.dash || [])
+            this._canvas.ctx.miterLimit = options.miterLimit
         }, () => {
-            this._canvas.c.stroke()
+            this._canvas.ctx.stroke()
         })
     }
 
@@ -747,10 +820,10 @@ class Artisan {
      */
     shadow(options: shadowOptions = {}) {
         this.addStyle(() => {
-            this._canvas.c.shadowColor = this.checkColor(options.color)
-            this._canvas.c.shadowBlur = options.blur
-            this._canvas.c.shadowOffsetX = options.xOffset
-            this._canvas.c.shadowOffsetY = options.yOffset
+            this._canvas.ctx.shadowColor = this.checkColor(options.color)
+            this._canvas.ctx.shadowBlur = options.blur
+            this._canvas.ctx.shadowOffsetX = options.xOffset
+            this._canvas.ctx.shadowOffsetY = options.yOffset
         }, () => {})
     }
 
@@ -761,9 +834,9 @@ class Artisan {
     font(options: fontOptions = {}) {
         this.addStyle(() => {
             if(options.system) {
-                this._canvas.c.font = options.system
+                this._canvas.ctx.font = options.system
             }
-            this._canvas.c.font =
+            this._canvas.ctx.font =
                 `${options.style || ''} ${options.variant || ''} ${options.weight || ''}` +
                 `${options.stretch || ''} ${options.size || ''} ${options.lineHeight || ''}` +
                 `${options.family || 'serif'}`
@@ -777,11 +850,11 @@ class Artisan {
      * @param {number} y1 y-axis coordinate of the start point
      * @param {number} x2 x-axis coordinate of the end point
      * @param {number} y2 y-axis coordinate of the end point
-     * @param {?{offset: number, color: string}[]} stops gradient color stop
+     * @param {{offset: number, color: string}[]=} stops gradient color stop
      * @returns {CanvasGradient}
      */
-    createLinearGradient(x1, y1, x2, y2, stops: {offset: number, color: string}[] = []) {
-        const gr = this._canvas.c.createLinearGradient(x1, y1, x2, y2)
+    createLinearGradient(x1: number, y1: number, x2: number, y2: number, stops: {offset: number, color: string}[] = []) {
+        const gr = this._canvas.ctx.createLinearGradient(x1, y1, x2, y2)
         for (let i = 0; i < stops.length; i++) {
             const stop = stops[i];
             
@@ -802,8 +875,8 @@ class Artisan {
      * @param {?{offset: number, color: string}[]} stops gradient color stops
      * @returns {CanvasGradient}
      */
-    createRadialGradient(x1, y1, r1, x2, y2, r2, stops: {offset: number, color: string}[] = []) {
-        const gr = this._canvas.c.createRadialGradient(x1, y1, r1, x2, y2, r2)
+    createRadialGradient(x1: number, y1: number, r1: number, x2: number, y2: number, r2: number, stops: {offset: number, color: string}[] = []) {
+        const gr = this._canvas.ctx.createRadialGradient(x1, y1, r1, x2, y2, r2)
         for (let i = 0; i < stops.length; i++) {
             const stop = stops[i];
             
@@ -815,26 +888,45 @@ class Artisan {
     /**
      * @description Create a canvas pattern
      * 
-     * @param {CanvasImageSource} image Pattern Image
-     * @param {string} repetition Pattern Repetition
+     * @param {CanvasImageSource} image pattern image
+     * @param {"repeat" | ""repeat-x" | "repeat-y" | "no-repeat"} repetition pattern repetition
      * @returns {CanvasPattern}
      */
-    createPattern(image: CanvasImageSource, repetition: string) {
-        return this._canvas.c.createPattern(image, repetition)
+    createPattern(image: CanvasImageSource, repetition: "repeat" | "repeat-x" | "repeat-y" | "no-repeat") {
+        return this._canvas.ctx.createPattern(image, repetition)
+    }
+
+    /**
+     * @description get loaded pixel in specific location of canvas
+     * 
+     * @param {number} x pixel x
+     * @param {number} y pixel y
+     * @returns {number}
+     */
+    getPixel(x: number, y: number) {
+        const i = (x + y * this._canvas.width) * 4
+        return [this.pixels[i], this.pixels[i + 1], this.pixels[i + 2], this.pixels[i + 3] / 255]
+    }
+
+    /**
+     * @description replace pixel color in specific location
+     * 
+     * @param {number} x pixel x
+     * @param {number} y pixel y
+     * @param {number[]} color replacement color [r, g, b, a]
+     * @returns {number}
+     */
+    setPixel(x: number, y: number, color: number[]) {
+        const data = this._canvas.ctx.createImageData(1, 1)
+        data.data[0] =  color[0] || 0
+        data.data[1] = color[1] || 0
+        data.data[2] = color[2] || 0
+        data.data[3] = color[3] * 255 || 1
+        this._canvas.ctx.putImageData(data, x, y)
     }
 
 
     // Properties
-    /**
-     * @description Canvas2D for artisan to drawing
-     * @type {Canvas2D}
-     */
-    get canvas(): Canvas2D {
-        return this._canvas
-    }
-    set canvas(canvas: Canvas2D) {
-        this._canvas = canvas
-    }
 
     /**
      * @description Canvas2D pixels
@@ -846,7 +938,7 @@ class Artisan {
 
     // Options
     /**
-     * @description Artisan angle unit to be used
+     * @description Kit2D angle unit to be used
      * @type {angleUnit}
      */
     get angleUnit(): angleUnit {
@@ -857,7 +949,7 @@ class Artisan {
     }
 
     /**
-     * @description Artisan angle unit to be used
+     * @description Kit2D angle unit to be used
      * @type {number}
      */
     get fps(): number {
@@ -868,7 +960,7 @@ class Artisan {
     }
 
     /**
-     * @description Artisan coordinates system to be used
+     * @description Kit2D coordinates system to be used
      * @type {coordinatesSystem}
      */
     get coordinateSystem(): coordinatesSystem {
@@ -878,37 +970,26 @@ class Artisan {
         this._config.coordinatesSystem = system
     }
 
-    /**
-     * @description Canvas background style
-     * @type {canvasStyle}
-     */
-    get canvasFillStyle(): canvasStyle {
-        return this._config.canvasFillStyle
-    }
-    set canvasFillStyle(style: canvasStyle) {
-        this._config.canvasFillStyle = style
-    }
-
     // Canvas global configuration
     /**
      * @description Canvas global alpha
      * @type {number}
      */
     get alpha(): number {
-        return this._canvas.c.globalAlpha
+        return this._canvas.ctx.globalAlpha
     }
     set alpha(alpha: number) {
-        this._canvas.c.globalAlpha = alpha
+        this._canvas.ctx.globalAlpha = alpha
     }
 
     /**
      * @description Canvas global composite operation
      */
     get compositeOperation(): string {
-        return this._canvas.c.globalCompositeOperation
+        return this._canvas.ctx.globalCompositeOperation
     }
     set compositeOperation(operation: string) {
-        this._canvas.c.globalCompositeOperation = operation
+        this._canvas.ctx.globalCompositeOperation = operation
     }
 
     /**
@@ -916,11 +997,11 @@ class Artisan {
      * @type {boolean}
      */
     get disableImageSmoothing(): boolean {
-        return !this._canvas.c.imageSmoothingEnabled
+        return !this._canvas.ctx.imageSmoothingEnabled
     }
     set disableImageSmoothing(disabled: boolean) {
-        this._canvas.c.imageSmoothingEnabled = !disabled
+        this._canvas.ctx.imageSmoothingEnabled = !disabled
     }
 }
 
-export default Artisan
+export default Kit2D

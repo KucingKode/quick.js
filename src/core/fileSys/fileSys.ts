@@ -7,16 +7,6 @@ type callback = (err?: Error, context?: string) => void
 const url = window.location
 
 /**
- * @description Create a path from paths
- * 
- * @param path Paths to be joined
- * @returns {string}
- */
-function path(...path: string[]) {
-    return window.location.href + path.join('/')
-}
-
-/**
  * @description Get text from a file using fetch
  * 
  * @param {string} path Url or path to a file
@@ -43,7 +33,7 @@ async function getText(path: string, callback: callback ): Promise<void> {
  */
 async function getJSON(path: string, callback: callback): Promise<void> {
     await fetch(path)
-        .then(data => data.text())
+        .then(data => data.json())
         .then(text => callback(undefined, text || ''))
         .catch(err => callback( new Error(err) ))
 }
@@ -58,7 +48,6 @@ function sendText(text: string, name: string) {
 
 export default {
     url,
-    path,
     getText,
     getJSON,
     sendText

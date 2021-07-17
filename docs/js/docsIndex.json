@@ -1,7 +1,9 @@
 {
-    "std": [
+    "Constants": [
         "PI",
-        "TWO_PI",
+        "TWO_PI"
+    ],
+    "Utility": [
         "map()",
         "constraint()",
         "inverse()",
@@ -13,30 +15,82 @@
         "random()",
         "randomChar()",
         "randomFrom()",
-        "noise.perlin()",
+        "perlinNoise",
         "degToRad()",
         "radToDeg()",
         "round()",
         "floor()",
-        "ceil()",
+        "ceil()"
+    ],
+    "Classes": [
+        "class: Canvas2D",
         "class: Vector2D",
         "class: Line",
         "class: Grid",
         "class: Stack",
         "class: Queue"
     ],
-    "fileSys": [
+    "Kit2D Variable": [],
+    "Kit2D Utility": [
+        "draw()",
+        "createDOMMatrix()",
+        "restoreDefault()"
+    ],
+    "Kit2D Transform": [
+        "rotate()",
+        "scale()",
+        "translate()",
+        "transform()",
+        "flipH()",
+        "flipV()",
+        "getTransform()",
+        "resetTransform()"
+    ],
+    "Kit2D Drawing": [
+        "beginPath()",
+        "closePath()",
+        "save()",
+        "restore()",
+        "fillCanvas()",
+        "clearCanvas()",
+        "rect()",
+        "ellipse()",
+        "arc()",
+        "circle()",
+        "line()",
+        "bezier()",
+        "curve()",
+        "shape()",
+        "image()",
+        "text()"
+    ],
+    "Kit2D Styling": [
+        "fill()",
+        "stroke()",
+        "shadow()",
+        "font()",
+        "createLinearGradient()",
+        "createRadialGradient()",
+        "createPattern()"
+    ],
+    "Kit2D Pixel": [
+        "loadPixels()",
+        "getPixel()",
+        "setPixel()"
+    ],
+    "Fetch & Send Files": [
         "getText()",
         "getJSON()",
         "sendText()"
     ],
-    "colorSys": [
+    "Color System": [
         "class: RGB",
         "class: HSL"
     ],
-    "media": [
-        "watchMouse()",
-        "watchKey()",
-        "watchTouch()"
+    "Media And Controller": [
+        "getMouse()",
+        "getKeyboard()",
+        "getTouches()",
+        "getCamera()"
     ]
 }

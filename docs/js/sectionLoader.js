@@ -23,7 +23,7 @@ function loadHome() {
     focus(0, 'home')
 }
 
-function loadGs() {
+async function loadGs() {
     if(!states.gsInitialized) {
         const markdowns = [
             './md/about.md',
@@ -31,15 +31,16 @@ function loadGs() {
         ]
 
         // load and compile markdowns
-        markdowns.forEach(async (url) => {
-            await fileSys.getText(url, (err, ctx) => {
-                const md = marked(ctx)
-                document.querySelector('.gs').innerHTML += md
-
-                const docsBtn = document.querySelector('.gs .docsBtn')
-                docsBtn.addEventListener('click', loadDocs)
+        // load and compile markdowns
+        for (let i = 0; i < markdowns.length; i++) {
+            const md = markdowns[i];
+            await fileSys.getText(md, (err, ctx) => {
+                if(err) console.error(err.message)
+                document.querySelector('.gs').innerHTML += marked(ctx)
+                const docsBtns = document.querySelectorAll('.docsBtn')
+                docsBtns.forEach(btn => btn.addEventListener('click', loadDocs))
             })
-        })
+        }
 
 
         states.gsInitialized = true
@@ -48,28 +49,30 @@ function loadGs() {
     focus(1, 'gs')
 }
 
-function loadDocs() {
+async function loadDocs() {
     if(!states.docsInitialized) {
         const markdowns = [
             './md/std/methods.md',
+            './md/drawing2d/Canvas2D.md',
             './md/std/Vector2D.md',
             './md/std/Line.md',
             './md/std/Grid.md',
             './md/std/Stack.md',
             './md/std/Queue.md',
-    
+            './md/drawing2d/Kit2D.md',
             './md/fileSys.md',
             './md/colorSys.md',
             './md/media.md',
         ]
 
         // load and compile markdowns
-        markdowns.forEach(async (url) => {
-            await fileSys.getText(url, (err, ctx) => {
-                const md = marked(ctx)
-                document.querySelector('.docs').innerHTML += md
+        for (let i = 0; i < markdowns.length; i++) {
+            const md = markdowns[i];
+            await fileSys.getText(md, (err, ctx) => {
+                if(err) console.error(err.message)
+                document.querySelector('.docs').innerHTML += marked(ctx)
             })
-        })
+        }
     
         states.docsInitialized = true
     }
@@ -86,7 +89,7 @@ function init() {
     docsBtns.forEach(btn => btn.addEventListener('click', loadDocs))
 
     downloadBtn.addEventListener('click', () => {
-        window.location = 'https://github.com/KucingKode/quick.js/releases/download/v1.0.0-alpha/quick.js'
+        window.location = 'https://github.com/KucingKode/quick.js/releases/download/v2.0.0-alpha/quick.js'
     })
     githubBtn.addEventListener('click', () => {
         window.location = 'https://github.com/KucingKode/quick.js'

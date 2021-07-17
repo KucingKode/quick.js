@@ -8,7 +8,7 @@ Line class will create a line in 2d space.
 >
 > **Syntax:**  
 > Create new line :  
-> `new std.Line(x: number, y: number, mag: number, angle: number)`
+> `new Line(x: number, y: number, mag: number, angle: number)`
 >
 > Parameter | Type     | Description
 > --------- | -------- | --------------------------  
@@ -18,7 +18,7 @@ Line class will create a line in 2d space.
 > `angle` | `number` | **Required** new line angle
 >
 > Create new line from two points :  
-> `std.Line.from(x1: number, y1: number, x2: number, y2: number)`  
+> `Line.fromPoints(x1: number, y1: number, x2: number, y2: number)`  
 >
 > Parameter | Type     | Description
 > --------- | -------- | --------------------------  
@@ -28,7 +28,7 @@ Line class will create a line in 2d space.
 > `x2` | `number` | **Required** second point y coordinate
 >
 > Clone a line :  
-> `std.Line.clone(line: Line)`  
+> `Line.clone(line: Line)`  
 >
 > Parameter | Type     | Description
 > --------- | -------- | --------------------------  
@@ -43,8 +43,6 @@ Line class will create a line in 2d space.
 > `mag`     | `number` | magnitude of the line  
 > `angle`   | `number` | angle of the line  
 > `unit`    | `Vector2D` | unit of the line
-> `start`  | `Vector2D` | line starting vector
-> `end`  | `Vector2D` | line end vector
 > `vertices`  | `Vector2D[]` | line vertices array
 >
 > **Methods:**

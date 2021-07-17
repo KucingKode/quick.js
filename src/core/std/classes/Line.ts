@@ -31,7 +31,7 @@ class Line {
      * @param {number} y2 second point y coordinate
      * @returns {Line}
      */
-    static from(x1: number, y1: number, x2: number, y2: number) {
+    static fromPoints(x1: number, y1: number, x2: number, y2: number) {
         const start = new Vector2D(x1, y1)
         const end = new Vector2D(x2, y2)
 
@@ -54,11 +54,19 @@ class Line {
     }
 
     // Functions
+    /**
+     * @description Rotate line
+     * @param {number} angle angle
+     */
     rotate(angle: number) {
         this.angle = this.angle + angle
     }
 
     // Getter & Setter
+    /**
+     * @description Line center x coordinate
+     * @type {number}
+     */
     get x() {
         return this._ref.center.x
     }
@@ -70,6 +78,10 @@ class Line {
         this._ref.unit = Vector2D.clone(this._ref.vertices[1]).$sub(this._ref.vertices[0]).unit
     }
     
+    /**
+     * @description Line center y coordinate
+     * @type {number}
+     */
     get y() {
         return this._ref.center.y
     }
@@ -81,6 +93,10 @@ class Line {
         this._ref.unit = Vector2D.clone(this._ref.vertices[1]).$sub(this._ref.vertices[0]).unit
     }
 
+    /**
+     * @description Line magnitude
+     * @type {number}
+     */
     get mag(): number {
         return this.vertices[1].$sub(this.vertices[0]).mag
     }
@@ -92,6 +108,10 @@ class Line {
         this._vertices[1] = Vector2D.clone(this._ref.center).$add(Vector2D.clone(unit).mult(mag/2))
     }
 
+    /**
+     * @description Line angle
+     * @type {number}
+     */
     get angle(): number {
         return this.vertices[1].$sub(this.vertices[0]).angle
     }
@@ -103,20 +123,28 @@ class Line {
         this._vertices[0] = Vector2D.clone(this._ref.center).$add(Vector2D.clone(unit).mult(-mag/2))
         this._vertices[1] = Vector2D.clone(this._ref.center).$add(Vector2D.clone(unit).mult(mag/2))
     }
+
+    /**
+     * @description Line unit
+     * @type {Vector2D}
+     */
     get unit(): Vector2D {
         return this.vertices[1].$sub(this.vertices[0]).unit
     }
 
     // Get vertices
-    get start(): Vector2D {
-        return this._vertices[0]
-    }
-    get end(): Vector2D {
-        return this._vertices[1]
-    }
+    /**
+     * @description Vector2D representation of the line
+     * @type {Vector2D}
+     */
     get line(): Vector2D {
         return this.vertices[1].$sub(this.vertices[0])
     }
+
+    /**
+     * @description Line vertices
+     * @type {Vector2D[]}
+     */
     get vertices(): Vector2D[] {
         return [Vector2D.clone(this._vertices[0]), Vector2D.clone(this._vertices[1])]
     }
