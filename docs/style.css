@@ -79,7 +79,6 @@ nav .sidebar-toggle {
   height: 2.5em;
   cursor: pointer;
   transition: 0.3s all;
-  margin-top: -0.6em;
 }
 @media (min-width: 1200px) {
   nav .sidebar-toggle {

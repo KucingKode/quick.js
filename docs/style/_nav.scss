@@ -25,7 +25,6 @@
             height: 2.5em;
             cursor: pointer;
             transition: 0.3s all;
-            margin-top: -0.6em;
             @include var.desktop() {
                 margin-top: 0;
             }

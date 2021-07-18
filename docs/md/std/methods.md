@@ -203,7 +203,47 @@ ___
 >
 > average number from array: `number | undefined`
 
-## **Random generator:**
+- ### **loop()**
+
+> **Description:**
+>
+> Create a loop
+>
+> **Syntax:**
+>
+> `loop(callback: (stop: () => void) => void)`
+>
+> **Parameters:**
+>
+> Parameter | Type     | Description
+> --------- | -------- | --------------------------  
+> `callback` | `(stop: () => void) => void` | **Required**. Function to be executed for each loop, it receive stop function in its parameters that will stop the loop if executed
+>
+> **Returns:**
+>
+> `void`
+
+- ### **write()**
+
+> **Description:**
+>
+> Write content on your screen
+>
+> **Syntax:**
+>
+> `write(content: any)`
+>
+> **Parameters:**
+>
+> Parameter | Type     | Description
+> --------- | -------- | --------------------------  
+> `content` | `any` | **Required**. Content of the text
+>
+> **Returns:**
+>
+> `void`
+
+## **Random & Noise:**
 
 <!-- random -->
 - ### **random()**
@@ -270,8 +310,6 @@ ___
 >
 > random value and its index: `{value: any, i: number}`
 
-## **Noise:**
-
 <!-- PerlinNoise -->
 - ### **perlinNoise**
 
@@ -296,7 +334,7 @@ ___
 > --------- | -------- | --------------------------
 >
 
-## **Unit conversion:**
+## **Unit Convertion:**
 
 <!-- DegToRad -->
 - ### **degToRad()**
@@ -405,5 +443,3 @@ ___
 > **Returns:**
 >
 > round number: `number`
-
-## **Classes**

@@ -3,7 +3,7 @@ import {unsetActive, ref, states} from './utility.js'
 
 
 const {fileSys, std} = Quick.Core
-
+const VERSION = 'v2.5.0-alpha'
 
 // All HTML element required
 const sideToggle = document.querySelector('.sidebar-toggle')
@@ -37,8 +37,11 @@ async function loadGs() {
             await fileSys.getText(md, (err, ctx) => {
                 if(err) console.error(err.message)
                 document.querySelector('.gs').innerHTML += marked(ctx)
+
                 const docsBtns = document.querySelectorAll('.docsBtn')
                 docsBtns.forEach(btn => btn.addEventListener('click', loadDocs))
+                const verP = document.querySelectorAll('.version')
+                verP.forEach(p => p.innerHTML = VERSION)
             })
         }
 
@@ -89,7 +92,7 @@ function init() {
     docsBtns.forEach(btn => btn.addEventListener('click', loadDocs))
 
     downloadBtn.addEventListener('click', () => {
-        window.location = 'https://github.com/KucingKode/quick.js/releases/download/v2.0.0-alpha/quick.js'
+        window.location = `https://github.com/KucingKode/quick.js/releases/download/${VERSION}/quick.js`
     })
     githubBtn.addEventListener('click', () => {
         window.location = 'https://github.com/KucingKode/quick.js'

@@ -21,6 +21,7 @@ const TWO_PI = Math.PI * 2
  * @returns {number}
  */
 function inverse(n: number): number {
+    if(n == 0) return 0
     return 1/n
 }
 
@@ -55,7 +56,7 @@ function constraint(n: number, min: number, max: number): number {
 }
 
 /**
- * @description Round a number with precision
+ * @description Round a number
  * 
  * @param {number} n Numeric expression
  * @param {number=} precision Round precision
@@ -239,6 +240,11 @@ function radToDeg(rad: number) {
     return rad * 180 / Math.PI
 }
 
+/**
+ * @description Create a loop
+ * @param {(stop: () => void) => void} callback Function to be executed for each loop,
+ * it receive stop function in its parameters that will stop the loop if executed
+ */
 function loop(callback: (stop: () => void) => void) {
     let id, stopped = false
     function loop() {
@@ -254,6 +260,34 @@ function loop(callback: (stop: () => void) => void) {
     }
 
     loop()
+}
+/**
+ * @description Write a text on the screen
+ * @param {*} text Content of the text
+ */
+function write(content: any) {
+    const h1 = document.createElement('h1')
+    const textEl = document.createElement('pre')
+    textEl.style.padding = '0.3em 0.5em'
+
+    h1.appendChild(textEl)
+    document.querySelector('body').appendChild(h1)
+
+    if(typeof content == 'object') {
+        let text = ''
+        Object.keys(content).forEach(key => {
+            const c = content[key]
+            text += `  ${key}: ${c}\n`
+        })
+
+        textEl.innerText =
+            '{\n' +
+            `${text}` +
+            '}'
+
+        return
+    }
+    textEl.innerText = content
 }
 
 export default {
@@ -275,5 +309,5 @@ export default {
     randomChar,
     radToDeg,
     degToRad,
-    loop
+    loop, write
 }

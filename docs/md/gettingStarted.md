@@ -1,6 +1,5 @@
 ___
 
-
 # **Getting Started**
 
 ## **Easy way:**

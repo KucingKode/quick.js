@@ -11,4 +11,5 @@ const Core = {
     ...media,
     Canvas2D
 }
+
 export default Core

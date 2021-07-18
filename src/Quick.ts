@@ -45,7 +45,7 @@ class Quick {
      * @type {string}
      * @private
      */
-    private _core_version: string = '1b'
+    private _core_version: string = '1c'
 
     /**
      * @description store all intervals that have been set
@@ -152,7 +152,7 @@ class Quick {
             current = sketch
 
             this._ref.p1 = performance.now()
-            current.start(this.Core)
+            current.start(Core)
         }
     }
     
@@ -175,7 +175,7 @@ class Quick {
 
             current = this._sketches[title]
 
-            current.start(this.Core)
+            current.start(Core)
             return
         }
         console.log(`%cSketch with title "${title}" not found!`, colors.err)
@@ -231,12 +231,6 @@ class Quick {
     }, sketch: (quick: typeof Core) => void) {
         this._sketches[options.title] = (new Sketch(options, sketch))
     }
-
-    /**
-     * @description Quick.js Core library
-     */
-    Core = Core
-
 
     // Properties
     /**
@@ -428,4 +422,4 @@ window.Quick = new class {
     }
 }()
 
-export default Q as Quick
+export {Q as Quick, Core}

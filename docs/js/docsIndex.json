@@ -11,13 +11,19 @@
         "fround()",
         "min()",
         "max()",
-        "average()",
+        "average()"
+    ],
+    "Random & Noise": [
         "random()",
         "randomChar()",
         "randomFrom()",
-        "perlinNoise",
+        "perlinNoise()"
+    ],
+    "Unit Convertion": [
         "degToRad()",
-        "radToDeg()",
+        "radToDeg()"
+    ],
+    "Rounding": [
         "round()",
         "floor()",
         "ceil()"
