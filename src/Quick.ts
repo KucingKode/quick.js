@@ -38,7 +38,7 @@ class Quick {
      * @type {string}
      * @private
      */
-    private _version: string = '2.0.0-beta'
+    private _version: string = '2.5.0-alpha'
 
     /**
      * @description Quick.js Core Version
